@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - E-Commerce</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Center the search bar */
+        .search-container {
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .search-container .input-group {
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .search-container input {
+            border-radius: 0;
+        }
+
+        .search-container .dropdown-menu {
+            width: 100%;
+        }
+
+        /* Product grid styles */
+        #product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #343a40;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            margin: 5px 0;
+            color: #6c757d;
+        }
+
+        .product-card p.price {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Search Bar Section -->
+    <div class="search-container">
+        <form action="/search" method="GET" id="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for products" id="search-input">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</button>
+                    <div class="dropdown-menu" id="category-dropdown" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" data-category="men-clothings">Men's Clothing</a>
+                        <a class="dropdown-item" href="#" data-category="women-clothings">Women's Clothing</a>
+                        <a class="dropdown-item" href="#" data-category="men-shoes">Men's Shoes</a>
+                        <a class="dropdown-item" href="#" data-category="women-shoes">Women's Shoes</a>
+                        <a class="dropdown-item" href="#" data-category="accessories">Accessories</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Placeholder for Product Grid -->
+    <div id="product-grid">
+        <!-- Products will be dynamically inserted here -->
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add the JavaScript for category selection -->
+    <script>
+        // Handle category dropdown selection
+        document.querySelectorAll('#category-dropdown a').forEach(item => {
+            item.addEventListener('click', function (event) {
+                event.preventDefault();
+                const category = this.getAttribute('data-category');
+                searchByCategory(category);
+            });
+        });
+
+        // Search products by category
+        async function searchByCategory(category) {
+            try {
+                const response = await fetch(`/products/search?category=${category}`);
+                const data = await response.json();
+                if (data.success) {
+                    displayProducts(data.products);  // Reuse the function to display products
+                } else {
+                    document.getElementById('product-grid').innerHTML = '<p>No products found in this category</p>';
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Function to display products (this will be filled based on your product grid implementation)
+        function displayProducts(products) {
+            const productGrid = document.getElementById('product-grid');
+            productGrid.innerHTML = ''; // Clear previous products
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="product-card">
+                        <img src="${product.images[0]}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p class="price">Price: $${product.price}</p>
+                    </div>
+                `;
+                productGrid.innerHTML += productHTML;
+            });
+        }
+    </script>
+</body>
+
+</html>

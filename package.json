@@ -1,0 +1,33 @@
+{
+  "name": "halima-ecommerce-website",
+  "version": "1.0.0",
+  "description": "This is a project on building an e-commerce website for halima's collection",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohamednoor2453/Halima-s-collection.git"
+  },
+  "author": "Mohamed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mohamednoor2453/Halima-s-collection/issues"
+  },
+  "homepage": "https://github.com/Mohamednoor2453/Halima-s-collection#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.6.3",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.15",
+    "passport": "^0.7.0",
+    "request": "^2.88.2"
+  }
+}
