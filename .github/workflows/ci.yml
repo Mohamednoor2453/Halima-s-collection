@@ -1,0 +1,35 @@
+name: Node.js CI
+
+# Trigger workflow on push or pull request events on master
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu
+
+    steps:
+      # Check out the repository code
+      - uses: actions/checkout@v2
+      
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Set your Node.js version (adjust if needed)
+
+      # Install project dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run tests
+      #- name: Run tests
+      #  run: npm test  # Assuming you have tests set up
+
+      # Run linting
+      #- name: Run linter
+       # run: npm run lint  # Replace with your linting command (e.g., eslint)
