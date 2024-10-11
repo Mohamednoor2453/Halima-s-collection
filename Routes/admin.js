@@ -43,29 +43,22 @@ router.get('/admin/addedProducts', async(req, res)=>{
 
 //deleting product
 
-router.delete('/admin/deletingProducts/:id', async(req, res)=>{
-
-    const productId = req.params.id
+router.delete('/admin/deletingProducts/:id', async(req, res) => {
+    const productId = req.params.id;
 
     try {
+        // Directly find and delete the product
+        const product = await Product.findByIdAndDelete(productId);
 
-        const product = await Product.findById(productId)
-
-        if(!product){
-            return res.status(400).json({success:false, messsage: "product are not yet available"})
+        if (!product) {
+            return res.status(404).json({success: false, message: "Product not found"});
         }
 
-        await Product.findByIdAndDelete(productId)
-
-        res.status(200).json({success:true, message: "Product deleted successfully"})
-        
+        res.status(200).json({success: true, message: "Product deleted successfully"});
     } catch (error) {
-
-        res.status(500).json({success: false, error: error.message})
-        
+        res.status(500).json({success: false, error: error.message});
     }
-})
-
+});
 
 //Updating a product
 

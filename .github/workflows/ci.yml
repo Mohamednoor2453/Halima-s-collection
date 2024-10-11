@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest  # Use the latest version of Ubuntu
 
     steps:
@@ -27,9 +26,9 @@ jobs:
         run: npm install
 
       # Run tests
-      #- name: Run tests
-      #  run: npm test  # Assuming you have tests set up
+      - name: Run tests
+        run: npm test  # Assuming you have tests set up
 
       # Run linting
-      #- name: Run linter
-       # run: npm run lint  # Replace with your linting command (e.g., eslint)
+      - name: Run linter
+        run: npm run lint 
