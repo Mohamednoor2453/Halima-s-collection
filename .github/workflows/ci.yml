@@ -19,16 +19,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Set your Node.js version (adjust if needed)
+          node-version: '16'  # Use a more recent Node.js version
 
       # Install project dependencies
       - name: Install dependencies
         run: npm install
 
-      # Run tests
-      - name: Run tests
-        run: npm test  # Assuming you have tests set up
-
       # Run linting
       - name: Run linter
         run: npm run lint 
+
+      # Run tests
+      - name: Run tests
+        run: npm test  # This should work if Jest is set up
