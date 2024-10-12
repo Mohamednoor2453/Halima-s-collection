@@ -228,6 +228,18 @@ form button[type="submit"]:hover {
 .form-group button:active {
     background-color: #004494;
 }
+
+.error-page h1 {
+    margin: 0;
+    
+}
+
+.error-page {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 100px; /* Center it vertically */
+    color: #e74c3c;
+}
     /* .image-gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

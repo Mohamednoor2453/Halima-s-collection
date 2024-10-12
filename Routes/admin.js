@@ -6,7 +6,7 @@ const Product = require('../model/product.js')
 
 //posting a new product
 
-router.post('/admin/addingProduts', async(req, res)=>{
+router.post('/admin/addingProducts', async(req, res)=>{
     try {
         const {name, description, price, stock, categories, images} = req.body //add all this small letters
 
@@ -15,6 +15,9 @@ router.post('/admin/addingProduts', async(req, res)=>{
         })
 
         newProduct.save()
+        .then((result) => {
+            res.redirect('/all-products') //redirecting after submiting the form
+        })
         res.status(201).json({success: true, message: "product added successfully"})
     } catch (error) {
         res.status(500).json({success: false, error: error})

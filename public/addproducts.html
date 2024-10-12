@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halima's Admin</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body >
     <div class="sidebar">
@@ -13,7 +13,7 @@
             <li>
                 <a href="#dashboardDropdown" onclick="toggleDropdown('dashboardDropdown')">Dashboard</a>
                 <ul id="dashboardDropdown" style="display: none;">
-                    <li><a href="/admin">Dashboard Home</a></li>
+                    <li><a href="dashboard.html">Dashboard Home</a></li>
                     <li><a href="#">Analytics</a></li>
                 </ul>
             </li>
@@ -47,26 +47,46 @@
         </ul>
     </div>
 
-    <div id="main-content" class="content">
-        <h2>Admin Dashboard</h2>
-        <div class="dashboard-boxes">
-            <div class="box" onclick="navigateTo('products')">
-                <h3>Products</h3>
-                <p>Manage all products</p>
-            </div>
-            <div class="box" onclick="navigateTo('orders')">
-                <h3>Orders</h3>
-                <p>Manage all orders</p>
-            </div>
-            <div class="box" onclick="navigateTo('users')">
-                <h3>Users</h3>
-                <p>Manage users</p>
-            </div>
-            <div class="box" onclick="navigateTo('settings')">
-                <h3>Settings</h3>
-                <p>Manage site settings</p>
-            </div>
-        </div>
+    <div class="content">
+        <h1>Add New Product</h1>
+        <form action="/admin/addedProduts" method="POST" enctype="multipart/form-data">
+            <!-- Product Name -->
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <!-- Description -->
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <!-- Price -->
+            <label for="price">Price (in Ksh):</label>
+            <input type="number" id="price" name="price" step="0.01" required><br>
+
+            <!-- Stock -->
+            <label for="stock">Stock Quantity:</label>
+            <input type="number" id="stock" name="stock" required><br>
+
+            <!-- Categories -->
+            <!-- Categories Dropdown -->
+<label for="categories">Categories:</label>
+<select id="categories" name="categories" required>
+        <option value="" disabled selected>Select a category</option>
+        <option value="sneakers">Sneakers</option>
+         <option value="men-tshirt">Men-Tshirt</option>
+         <option value="men-trousers">Men-Trousers</option>
+         <option value="men-shoes">Men-Shoes</option>
+         <option value="women-shoes">Women-Shoes</option>
+         <option value="women-trousers">Women-Trousers</option>
+     </select><br>
+
+
+            <!-- Images -->
+            <label for="images">Product Images:</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required><br>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Product</button>
+        </form>
     </div>
 
     <script>

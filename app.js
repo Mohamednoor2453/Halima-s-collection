@@ -39,6 +39,10 @@ mongoose.connect(dbURL)
 
 // Start the server
 const port = process.env.PORT || 3000; // Provide a default port if `process.env.PORT` is undefined
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
 app.listen(port, () => {
     console.log(`Server is up, listening for requests on port ${port}`);
 });
