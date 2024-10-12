@@ -136,15 +136,16 @@ form button[type="submit"]:hover {
 
 .dashboard-boxes {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust space between boxes */
+    flex-wrap: nowrap; /* Prevent wrapping */
     margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
 
 .box {
     background-color: #2c3e50;
     border-radius: 8px;
-    width: 300px;
+    width: 300px; /* Adjust width to fit more boxes in the line */
     padding: 40px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
