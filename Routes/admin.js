@@ -4,12 +4,11 @@ router = express.Router()
 const Product = require('../model/product.js')
 
 
-
 //posting a new product
 
 router.post('/admin/addingProduts', async(req, res)=>{
     try {
-        const {name, description, price, stock, categories, images} = req.body
+        const {name, description, price, stock, categories, images} = req.body //add all this small letters
 
         const newProduct = await new Product({
             name, description, price, stock, categories, images
@@ -24,6 +23,8 @@ router.post('/admin/addingProduts', async(req, res)=>{
 })
 
 //sending the product added to admin page
+
+//add new product and view in all products
 
 router.get('/admin/addedProducts', async(req, res)=>{
 
@@ -52,7 +53,7 @@ router.delete('/admin/deletingProducts/:id', async(req, res)=>{
         const product = await Product.findById(productId)
 
         if(!product){
-            return res.status(400).json({success:false, messsage: "product are not yet available"})
+            return res.status(400).json({success:false, message: "product are not yet available"})
         }
 
         await Product.findByIdAndDelete(productId)
