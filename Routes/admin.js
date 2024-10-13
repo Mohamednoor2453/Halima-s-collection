@@ -4,11 +4,12 @@ router = express.Router()
 const Product = require('../model/product.js')
 
 
+
 //posting a new product
 
 router.post('/admin/addingProducts', async(req, res)=>{
     try {
-        const {name, description, price, stock, categories, images} = req.body //add all this small letters
+        const {name, description, price, stock, categories, images} = req.body
 
         const newProduct = await new Product({
             name, description, price, stock, categories, images
@@ -26,8 +27,6 @@ router.post('/admin/addingProducts', async(req, res)=>{
 })
 
 //sending the product added to admin page
-
-//add new product and view in all products
 
 router.get('/admin/addedProducts', async(req, res)=>{
 
@@ -47,29 +46,22 @@ router.get('/admin/addedProducts', async(req, res)=>{
 
 //deleting product
 
-router.delete('/admin/deletingProducts/:id', async(req, res)=>{
-
-    const productId = req.params.id
+router.delete('/admin/deletingProducts/:id', async(req, res) => {
+    const productId = req.params.id;
 
     try {
+        // Directly find and delete the product
+        const product = await Product.findByIdAndDelete(productId);
 
-        const product = await Product.findById(productId)
-
-        if(!product){
-            return res.status(400).json({success:false, message: "product are not yet available"})
+        if (!product) {
+            return res.status(404).json({success: false, message: "Product not found"});
         }
 
-        await Product.findByIdAndDelete(productId)
-
-        res.status(200).json({success:true, message: "Product deleted successfully"})
-        
+        res.status(200).json({success: true, message: "Product deleted successfully"});
     } catch (error) {
-
-        res.status(500).json({success: false, error: error.message})
-        
+        res.status(500).json({success: false, error: error.message});
     }
-})
-
+});
 
 //Updating a product
 

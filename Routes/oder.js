@@ -38,7 +38,7 @@ router.post('/checkout', async (req, res) => {
         cart.cartTotalPrice = cart.items.reduce((total, item) => total + item.totalPrice, 0);
 
         // 4. Create a new Order
-        const order = new Order({
+        const order = new Oder({
             userId: cart.userId,
             items: cart.items,
             totalItems: cart.totalItem,
@@ -47,12 +47,12 @@ router.post('/checkout', async (req, res) => {
 
         await order.save();
 
-        //  Reduce the product stock
-        for (let item of cart.items) {
-            let product = await Product.findById(item.productId);
-            product.stock -= item.quantity;
-            await product.save();
-        }
+        // Reduce product stock only after saving the order
+    for (let item of cart.items) {
+        let product = await Product.findById(item.productId);
+        product.stock -= item.quantity;
+        await product.save();
+    }
 
         //Mark the cart as completed or clear it
         cart.items = [];
