@@ -1,3 +1,4 @@
+/* General styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -9,6 +10,11 @@ body {
     background-color: #2c3e50;
     padding-top: 20px;
     position: fixed;
+    transition: all 0.3s ease;
+}
+
+.sidebar.active {
+    width: 100px; /* Sidebar will collapse to 100px when active on small screens */
 }
 
 .sidebar ul {
@@ -55,102 +61,70 @@ body {
 .content {
     margin-left: 250px;
     padding: 20px;
+    transition: margin-left 0.3s ease;
 }
 
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-form label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #2c3e50;
-}
-
-form input[type="text"],
-form input[type="number"],
-form input[type="file"],
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #2c3e50;
-}
-
-form textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-/* File input styling */
-form input[type="file"] {
-    padding: 5px;
-    background-color: #ecf0f1;
-    border: 2px dashed #bdc3c7;
-    cursor: pointer;
-}
-
-form input[type="file"]:hover {
-    border-color: #34495e;
-}
-
-/* Submit button styling */
-form button[type="submit"] {
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
     background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
+    color: white;
+    padding: 10px;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
+    z-index: 1000;
 }
 
-form button[type="submit"]:hover {
-    background-color: #2980b9;
-}
-
-/* Responsive design for small screens */
+/* Responsive styles */
 @media (max-width: 768px) {
     .sidebar {
-        width: 200px;
+        width: 80px;
+    }
+
+    .sidebar ul li a {
+        font-size: 12px;
     }
 
     .content {
-        padding: 20px;
+        margin-left: 80px;
     }
 
-    form {
-        padding: 15px;
-        max-width: 100%;
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .dashboard-boxes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .box {
+        width: 100%;
+        padding: 20px;
     }
 }
 
+/* Dashboard boxes styling */
 .dashboard-boxes {
     display: flex;
-    justify-content: space-between; /* Adjust space between boxes */
-    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
 
 .box {
     background-color: #2c3e50;
     border-radius: 8px;
-    width: 200px; /* Adjust width to fit more boxes in the line */
-    padding: 40px;
+    width: calc(25% - 20px);
+    padding: 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.3s ease;
+    margin-bottom: 20px;
 }
 
 .box h3 {
@@ -166,87 +140,15 @@ form button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-.settings-container {
-    margin-left: 270px;
-    padding: 20px;
-}
-
-.password-section {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-.password-section h3 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-group input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-group input[type="password"]:focus {
-    border-color: #007BFF;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.form-group button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.form-group button:hover {
-    background-color: #0056b3;
-}
-
-.form-group button:active {
-    background-color: #004494;
-}
-    /* .image-gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        padding: 20px;
-        width: 90%;
-        max-width: 1200px;
+/* Responsive design for dashboard boxes */
+@media (max-width: 992px) {
+    .box {
+        width: calc(50% - 20px);
     }
-    
-    .image-gallery img {
+}
+
+@media (max-width: 768px) {
+    .box {
         width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s;
     }
-    
-    .image-gallery img:hover {
-        transform: scale(1.05);
-    } */
-
+}

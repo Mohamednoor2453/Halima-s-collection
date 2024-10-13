@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halima's Admin</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Function to toggle sidebar visibility on mobile
+        function toggleSidebar() {
+            const sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("active");
+        }
+
+        // Function to toggle dropdown visibility
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const isVisible = dropdown.style.display === "block";
+            dropdown.style.display = isVisible ? "none" : "block";
+        }
+    </script>
 </head>
-<body >
+<body>
     <div class="sidebar">
         <ul>
             <!-- Dashboard Dropdown -->
@@ -38,6 +52,7 @@
                 </ul>
             </li>
 
+            <!-- Settings Dropdown -->
             <li>
                 <a href="#settingsDropdown" onclick="toggleDropdown('settingsDropdown')">Settings</a>
                 <ul id="settingsDropdown" style="display: none;">
@@ -69,13 +84,7 @@
         </div>
     </div>
 
-    <script>
-        // Function to toggle dropdown visibility
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            const isVisible = dropdown.style.display === "block";
-            dropdown.style.display = isVisible ? "none" : "block";
-        }
-    </script>
+    <!-- Toggle button for mobile -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 </body>
 </html>
