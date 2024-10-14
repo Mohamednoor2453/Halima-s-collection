@@ -1,3 +1,5 @@
+<!-- addproducts.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
     <title>Halima's Admin</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body >
+<body>
     <div class="sidebar">
         <ul>
             <!-- Dashboard Dropdown -->
@@ -38,6 +40,7 @@
                 </ul>
             </li>
 
+            <!-- Settings Dropdown -->
             <li>
                 <a href="#settingsDropdown" onclick="toggleDropdown('settingsDropdown')">Settings</a>
                 <ul id="settingsDropdown" style="display: none;">
@@ -49,7 +52,7 @@
 
     <div class="content">
         <h1>Add New Product</h1>
-        <form action="/admin/addedProduts" method="POST" enctype="multipart/form-data">
+        <form action="/admin/admin/addingProducts" method="POST" enctype="multipart/form-data">
             <!-- Product Name -->
             <label for="name">Product Name:</label>
             <input type="text" id="name" name="name" required><br>
@@ -66,19 +69,17 @@
             <label for="stock">Stock Quantity:</label>
             <input type="number" id="stock" name="stock" required><br>
 
-            <!-- Categories -->
             <!-- Categories Dropdown -->
-<label for="categories">Categories:</label>
-<select id="categories" name="categories" required>
-        <option value="" disabled selected>Select a category</option>
-        <option value="sneakers">Sneakers</option>
-         <option value="men-tshirt">Men-Tshirt</option>
-         <option value="men-trousers">Men-Trousers</option>
-         <option value="men-shoes">Men-Shoes</option>
-         <option value="women-shoes">Women-Shoes</option>
-         <option value="women-trousers">Women-Trousers</option>
-     </select><br>
-
+            <label for="categories">Categories:</label>
+            <select id="categories" name="categories" required>
+                <option value="" disabled selected>Select a category</option>
+                <option value="sneakers">Sneakers</option>
+                <option value="men-tshirt">Men-Tshirt</option>
+                <option value="men-trousers">Men-Trousers</option>
+                <option value="men-shoes">Men-Shoes</option>
+                <option value="women-shoes">Women-Shoes</option>
+                <option value="women-trousers">Women-Trousers</option>
+            </select><br>
 
             <!-- Images -->
             <label for="images">Product Images:</label>
