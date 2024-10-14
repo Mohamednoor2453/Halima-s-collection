@@ -140,12 +140,10 @@ body {
     transform: scale(1.05);
 }
 
-<<<<<<< HEAD
 /* Responsive design for dashboard boxes */
 @media (max-width: 992px) {
     .box {
         width: calc(50% - 20px);
-=======
 .settings-container {
     margin-left: 270px;
     padding: 20px;
@@ -227,7 +225,6 @@ body {
         padding: 20px;
         width: 90%;
         max-width: 1200px;
->>>>>>> d502e6b54461c014364116ee2aff0cec432bb564
     }
 }
 
@@ -235,11 +232,8 @@ body {
     .box {
         width: 100%;
     }
-<<<<<<< HEAD
 }
-=======
     
     .image-gallery img:hover {
         transform: scale(1.05);
     } */
->>>>>>> d502e6b54461c014364116ee2aff0cec432bb564
