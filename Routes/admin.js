@@ -1,76 +1,86 @@
-const express = require('express')
+const express = require('express');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const router = express.Router();
+const Product = require('../model/product.js');
 
-router = express.Router()
-const Product = require('../model/product.js')
+// Ensure the 'uploads' directory exists
+const uploadDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
-
-
-//posting a new product
-
-router.post('/admin/addingProducts', async(req, res)=>{
-    try {
-        const {name, description, price, stock, categories, images} = req.body
-
-        const newProduct = await new Product({
-            name, description, price, stock, categories, images
-        })
-
-        newProduct.save()
-        .then((result) => {
-            res.redirect('/all-products') //redirecting after submiting the form
-        })
-        res.status(201).json({success: true, message: "product added successfully"})
-    } catch (error) {
-        res.status(500).json({success: false, error: error})
-        
+// Set up multer for image uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir); // Folder to store images
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname); // Save files with unique names
     }
-})
+});
+const upload = multer({ storage: storage });
 
-//sending the product added to admin page
-
-router.get('/admin/addedProducts', async(req, res)=>{
-
+// POST new product with image uploads
+router.post('/admin/addingProducts', upload.array('images', 5), async (req, res) => {
     try {
-        const products = await Product.find()
-        if(products.length === 0){
-            return res.status(404).json({success: false, message: "Products are not yet available"})
-        }
-        res.status(200).json({ success: true, products });
+        const { name, description, price, stock, categories } = req.body;
+        const images = req.files.map(file => file.path); // Get file paths of uploaded images
 
+        const newProduct = new Product({
+            name,
+            description,
+            price,
+            stock,
+            categories,
+            images
+        });
+
+        await newProduct.save();
+        res.status(201).json({ success: true, message: "Product added successfully" });
     } catch (error) {
-        res.status(500).json({succsess: false, error: error.message})
-        
-    }
-})
-
-
-//deleting product
-
-router.delete('/admin/deletingProducts/:id', async(req, res) => {
-    const productId = req.params.id;
-
-    try {
-        // Directly find and delete the product
-        const product = await Product.findByIdAndDelete(productId);
-
-        if (!product) {
-            return res.status(404).json({success: false, message: "Product not found"});
-        }
-
-        res.status(200).json({success: true, message: "Product deleted successfully"});
-    } catch (error) {
-        res.status(500).json({success: false, error: error.message});
+        console.error("Error adding product:", error.message); // Log error for debugging
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
-//Updating a product
+// GET all added products
+router.get('/admin/addedProducts', async (req, res) => {
+    try {
+        const products = await Product.find();
+        if (products.length === 0) {
+            return res.status(404).json({ success: false, message: "No products available yet" });
+        }
+        res.status(200).json({ success: true, products });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
+// DELETE a product by ID
+router.delete('/admin/deletingProducts/:id', async (req, res) => {
+    const productId = req.params.id;
+
+    try {
+        const product = await Product.findByIdAndDelete(productId);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Product deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// PUT (Update) a product by ID
 router.put('/admin/updateProduct/:id', async (req, res) => {
     const productId = req.params.id;
     const { name, description, price, stock, categories, images } = req.body;
 
     try {
-        // Find the product by ID and update it
         const updatedProduct = await Product.findByIdAndUpdate(
             productId,
             {
@@ -81,26 +91,17 @@ router.put('/admin/updateProduct/:id', async (req, res) => {
                 categories,
                 images,
             },
-            { new: true } // This option returns the updated product after the update
+            { new: true } // Return the updated product after update
         );
 
         if (!updatedProduct) {
-            // If the product is not found, send a 404 response
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        // Send the updated product as the response
         res.status(200).json({ success: true, message: "Product updated successfully", product: updatedProduct });
     } catch (error) {
-        // Handle server errors
         res.status(500).json({ success: false, error: error.message });
     }
 });
 
-
-
-
-
-
-
-module.exports = router
+module.exports = router;

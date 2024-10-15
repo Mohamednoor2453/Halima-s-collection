@@ -136,16 +136,15 @@ form button[type="submit"]:hover {
 
 .dashboard-boxes {
     display: flex;
-    justify-content: space-between; /* Adjust space between boxes */
-    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
 
 .box {
     background-color: #2c3e50;
     border-radius: 8px;
-    width: 200px; /* Adjust width to fit more boxes in the line */
+    width: 300px;
     padding: 40px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -227,18 +226,6 @@ form button[type="submit"]:hover {
 
 .form-group button:active {
     background-color: #004494;
-}
-
-.error-page h1 {
-    margin: 0;
-    
-}
-
-.error-page {
-    font-size: 2em;
-    text-align: center;
-    margin-top: 100px; /* Center it vertically */
-    color: #e74c3c;
 }
     /* .image-gallery {
         display: grid;
