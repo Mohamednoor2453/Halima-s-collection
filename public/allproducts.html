@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halima's Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body >
+    <div class="sidebar">
+        <ul>
+            <!-- Dashboard Dropdown -->
+            <li>
+                <a href="#dashboardDropdown" onclick="toggleDropdown('dashboardDropdown')">Dashboard</a>
+                <ul id="dashboardDropdown" style="display: none;">
+                    <li><a href="dashboard.html">Dashboard Home</a></li>
+                    <li><a href="#">Analytics</a></li>
+                </ul>
+            </li>
+
+            <!-- Users Dropdown -->
+            <li>
+                <a href="#usersDropdown" onclick="toggleDropdown('usersDropdown')">Users</a>
+                <ul id="usersDropdown" style="display: none;">
+                    <li><a href="#">All Users</a></li>
+                    <li><a href="#">Add New User</a></li>
+                    <li><a href="#">User Roles</a></li>
+                </ul>
+            </li>
+
+            <!-- Products Dropdown -->
+            <li>
+                <a href="#productsDropdown" onclick="toggleDropdown('productsDropdown')">Products</a>
+                <ul id="productsDropdown" style="display: none;">
+                    <li><a href="addedproducts.html">All Products</a></li>
+                    <li><a href="addnewproduct.html">Add New Product</a></li>
+                    <li><a href="#">Delete Product</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#settingsDropdown" onclick="toggleDropdown('settingsDropdown')">Settings</a>
+                <ul id="settingsDropdown" style="display: none;">
+                    <li><a href="settings.html">Change Password</a></li>
+                </ul>
+            </li>
+        </ul>
+</div>
+
+<div class="content">
+    <h1>Product Added Successfully</h1>
+    
+    <!-- Placeholder elements to dynamically populate the product details -->
+    <p><strong>Product Name:</strong> <span id="productName"></span></p>
+    <p><strong>Price:</strong> Ksh <span id="productPrice"></span></p>
+    <p><strong>Image:</strong> <img id="productImage" alt="Product Image" style="max-width: 200px;"></p>
+
+    <a href="/admin/addingProducts">Add another product</a>
+</div>
+
+<script>
+    // Assuming you passed the product data in localStorage after submission
+    document.addEventListener('DOMContentLoaded', () => {
+        const productData = JSON.parse(localStorage.getItem('newProduct'));
+
+        if (productData) {
+            // Dynamically populate the fields with the product data
+            document.getElementById('productName').textContent = productData.name;
+            document.getElementById('productPrice').textContent = productData.price;
+            document.getElementById('productImage').src = productData.images;
+        } else {
+            document.querySelector('.content').innerHTML = '<p>Product data not available.</p>';
+        }
+    });
+</script>
+</body>
+</html>
