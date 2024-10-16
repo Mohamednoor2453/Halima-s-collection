@@ -34,7 +34,7 @@
             <li>
                 <a href="#productsDropdown" onclick="toggleDropdown('productsDropdown')">Products</a>
                 <ul id="productsDropdown" style="display: none;">
-                    <li><a href="#">All Products</a></li>
+                    <li><a href="/admin/addedProducts">All Products</a></li>
                     <li><a href="/admin/addingProducts">Add New Product</a></li>
                     <li><a href="#">Delete Product</a></li>
                 </ul>
@@ -52,11 +52,7 @@
 
     <div class="content">
         <h1>Add New Product</h1>
-<<<<<<< HEAD
-        <form action="/admin/addingProducts" method="POST">
-=======
         <form action="/admin/admin/addingProducts" method="POST" enctype="multipart/form-data">
->>>>>>> 2bed6d9412cf058d500e9cf6c02ed3f14f83d45c
             <!-- Product Name -->
             <label for="name">Product Name:</label>
             <input type="text" id="name" name="name" required><br>
@@ -102,32 +98,6 @@
             dropdown.style.display = isVisible ? "none" : "block";
         }
 
-    //     document.querySelector('form').addEventListener('submit', function(event) {
-    //     event.preventDefault(); // Prevent the form from submitting normally
-
-    //     const formData = new FormData(this); // Collect form data
-
-    //     // Send the form data via AJAX
-    //     fetch('/admin/addingProducts', {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             // Store the product details in localStorage to access in the addedProducts page
-    //             localStorage.setItem('newProduct', JSON.stringify(data.product));
-
-    //             // Redirect to the addedProducts page
-    //             window.location.href = '/admin/addedProducts';
-    //         } else {
-    //             alert('Error adding product: ' + data.message);
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-    // });
     </script>
 </body>
 </html>
