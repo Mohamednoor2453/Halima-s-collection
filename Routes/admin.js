@@ -38,8 +38,8 @@ router.post('/admin/addingProducts', upload.array('images', 5), async (req, res)
         });
 
         await newProduct.save();
-        res.status(201).json({ success: true, message: "Product added successfully" });
-    } catch (error) {
+        res.sendFile(path.join(__dirname, '../public/allproducts.html'));   
+       } catch (error) {
         console.error("Error adding product:", error.message); // Log error for debugging
         res.status(500).json({ success: false, error: error.message });
     }
