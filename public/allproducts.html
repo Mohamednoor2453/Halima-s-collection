@@ -5,29 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halima's Admin</title>
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        // Function to toggle sidebar visibility on mobile
-        function toggleSidebar() {
-            const sidebar = document.querySelector(".sidebar");
-            sidebar.classList.toggle("active");
-        }
-
-        // Function to toggle dropdown visibility
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            const isVisible = dropdown.style.display === "block";
-            dropdown.style.display = isVisible ? "none" : "block";
-        }
-    </script>
 </head>
-<body>
+<body >
     <div class="sidebar">
         <ul>
             <!-- Dashboard Dropdown -->
             <li>
                 <a href="#dashboardDropdown" onclick="toggleDropdown('dashboardDropdown')">Dashboard</a>
                 <ul id="dashboardDropdown" style="display: none;">
-                    <li><a href="/admin">Dashboard Home</a></li>
+                    <li><a href="dashboard.html">Dashboard Home</a></li>
                     <li><a href="#">Analytics</a></li>
                 </ul>
             </li>
@@ -52,7 +38,6 @@
                 </ul>
             </li>
 
-            <!-- Settings Dropdown -->
             <li>
                 <a href="#settingsDropdown" onclick="toggleDropdown('settingsDropdown')">Settings</a>
                 <ul id="settingsDropdown" style="display: none;">
@@ -60,31 +45,47 @@
                 </ul>
             </li>
         </ul>
-    </div>
+</div>
 
-    <div id="main-content" class="content">
-        <h2>Admin Dashboard</h2>
-        <div class="dashboard-boxes">
-            <div class="box" onclick="navigateTo('products')">
-                <h3>Products</h3>
-                <p>Manage all products</p>
-            </div>
-            <div class="box" onclick="navigateTo('orders')">
-                <h3>Orders</h3>
-                <p>Manage all orders</p>
-            </div>
-            <div class="box" onclick="navigateTo('users')">
-                <h3>Users</h3>
-                <p>Manage users</p>
-            </div>
-            <div class="box" onclick="navigateTo('settings')">
-                <h3>Settings</h3>
-                <p>Manage site settings</p>
-            </div>
-        </div>
-    </div>
+<div class="content">
+    <h1>Product Added Successfully</h1>
+    
+    <!-- Placeholder elements to dynamically populate the product details -->
+    <p><strong>Product Name:</strong> <span id="productName"></span></p>
+    <p><strong>Price:</strong> Ksh <span id="productPrice"></span></p>
+    <p><strong>Image:</strong> <img id="productImage" alt="Product Image" style="max-width: 200px;"></p>
 
-    <!-- Toggle button for mobile -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <a href="/admin/addingProducts">Add another product</a>
+</div>
+
+<script>
+    // Assuming you passed the product data in localStorage after submission
+    document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/admin/addedProducts');
+        const data = await response.json();
+        
+        if (data.success) {
+            const products = data.products;
+            // Dynamically update the HTML with product details
+            const productList = document.querySelector('.content');
+            products.forEach(product => {
+                const productItem = `
+                    <p><strong>Product Name:</strong> ${product.name}</p>
+                    <p><strong>Price:</strong> Ksh ${product.price}</p>
+                    <p><strong>Image:</strong> <img src="${product.images[0]}" alt="Product Image" style="max-width: 200px;"></p>
+                    <hr>
+                `;
+                productList.innerHTML += productItem;
+            });
+        } else {
+            document.querySelector('.content').innerHTML = '<p>No products available yet.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+});
+
+</script>
 </body>
 </html>
