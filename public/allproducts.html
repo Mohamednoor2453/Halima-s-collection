@@ -32,7 +32,7 @@
             <li>
                 <a href="#productsDropdown" onclick="toggleDropdown('productsDropdown')">Products</a>
                 <ul id="productsDropdown" style="display: none;">
-                    <li><a href="/admin/addedProducts">All Products</a></li>
+                    <li><a href="/admin/admin/addedProducts">All Products</a></li>
                     <li><a href="/admin/addingProducts">Add New Product</a></li>
                     <li><a href="#">Delete Product</a></li>
                 </ul>
@@ -59,32 +59,36 @@
 </div>
 
 <script>
-    // Assuming you passed the product data in localStorage after submission
+    
     document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('/admin/addedProducts');
-        const data = await response.json();
-        
-        if (data.success) {
-            const products = data.products;
-            // Dynamically update the HTML with product details
-            const productList = document.querySelector('.content');
-            products.forEach(product => {
-                const productItem = `
-                    <p><strong>Product Name:</strong> ${product.name}</p>
-                    <p><strong>Price:</strong> Ksh ${product.price}</p>
-                    <p><strong>Image:</strong> <img src="${product.images[0]}" alt="Product Image" style="max-width: 200px;"></p>
-                    <hr>
-                `;
-                productList.innerHTML += productItem;
-            });
-        } else {
-            document.querySelector('.content').innerHTML = '<p>No products available yet.</p>';
+        try {
+            const response = await fetch('/admin/addedProducts');  // Fetch products
+            const data = await response.json();
+
+            if (data.success) {
+                const products = data.products;
+                // Select the content container where you want to insert product details
+                const productList = document.querySelector('.content');
+
+                // Loop through products and append details dynamically
+                products.forEach(product => {
+                    const productItem = `
+                        <p><strong>Product Name:</strong> ${product.name}</p>
+                        <p><strong>Price:</strong> Ksh ${product.price}</p>
+                        <p><strong>Image:</strong> <img src="${product.images[0]}" alt="Product Image" style="max-width: 200px;"></p>
+                        <hr>
+                    `;
+                    productList.innerHTML += productItem;
+                });
+            } else {
+                document.querySelector('.content').innerHTML = '<p>No products available yet.</p>';
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
         }
-    } catch (error) {
-        console.error('Error fetching products:', error);
-    }
-});
+    });
+
+
 
 </script>
 </body>
