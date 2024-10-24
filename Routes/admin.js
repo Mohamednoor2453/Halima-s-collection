@@ -22,11 +22,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// Serving the uploads folder
+router.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // POST new product with image uploads
 router.post('/admin/addingProducts', upload.array('images', 5), async (req, res) => {
     try {
         const { name, description, price, stock, categories } = req.body;
-        const images = req.files.map(file => file.path); // Get file paths of uploaded images
+        const images = req.files.map(file => `/uploads/${file.filename}`); // Save relative paths to images
 
         const newProduct = new Product({
             name,
@@ -38,9 +41,9 @@ router.post('/admin/addingProducts', upload.array('images', 5), async (req, res)
         });
 
         await newProduct.save();
-        res.sendFile(path.join(__dirname, '../public/allproducts.html'));   
-       } catch (error) {
-        console.error("Error adding product:", error.message); // Log error for debugging
+        res.sendFile(path.join(__dirname, '../public/allproducts.html'));
+    } catch (error) {
+        console.error("Error adding product:", error.message);
         res.status(500).json({ success: false, error: error.message });
     }
 });
@@ -61,7 +64,6 @@ router.get('/admin/addedProducts', async (req, res) => {
 // DELETE a product by ID
 router.delete('/admin/deletingProducts/:id', async (req, res) => {
     const productId = req.params.id;
-
     try {
         const product = await Product.findByIdAndDelete(productId);
 
