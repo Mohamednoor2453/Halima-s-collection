@@ -79,7 +79,7 @@ router.post('/Login', async(req, res, done)=>{
         }
 
         if(user.email === 'halima14collection550@gmail.com'){
-            return res.status(200).json({message:'Login successfully', flash:'Login successfully', redirectUrl: '/admin' })
+            return res.status(200).json({message:'Login successfully',  redirectUrl: '/admin' })
         }
         else {
             return res.status(200).json({ message: 'Login successfully', redirectUrl: '/product' });
@@ -100,7 +100,4 @@ router.post('/Logout', (req, res) => {
       res.status(200).json({ message: 'Logged out successfully', redirectUrl: '/home' });
     });
   });
-  
-
-
 module.exports = router
