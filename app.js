@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 
 
 const app = express();
-
+app.set('view engine', 'ejs')
 // Import routes
 const routesRouter = require('./Routes/route.js');
 const adminRouter = require('./Routes/admin.js');
