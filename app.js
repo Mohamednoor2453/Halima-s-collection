@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //seting ejs view engine
-app.set('view engine', ejs)
+app.set('view engine','ejs')
 
 // Use routes
 app.use('/', routesRouter);
