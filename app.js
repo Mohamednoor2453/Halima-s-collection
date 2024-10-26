@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const ejs = require('ejs')
 
 const path = require('path');
 const mongoose = require('mongoose');
@@ -24,6 +25,9 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//seting ejs view engine
+app.set('view engine', ejs)
+
 // Use routes
 app.use('/', routesRouter);
 app.use('/admin', adminRouter);
@@ -40,12 +44,23 @@ mongoose.connect(dbURL)
     .then(() => console.log('MongoDB connected successfully'))
     .catch((err) => console.error(err));
 
+
+    // Rendering 404 page for mispath
+app.use((req, res) => {
+    console.log('404 handler triggered');
+    res.status(404).render('404');
+  });
+  
+  // Error handling middleware
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
+
 // Start the server
 const port = process.env.PORT || 3000; // Provide a default port if `process.env.PORT` is undefined
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
-});
+
 app.listen(port, () => {
     console.log(`Server is up, listening for requests on port ${port}`);
 });
