@@ -16,7 +16,7 @@ router.get('/admin', (req, res) => {
 
 // Sending add products page to user
 router.get('/addingProducts', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/addproducts.html'));
+    res.render('addproducts.ejs');
 });
 
 // Sending all products page to user
