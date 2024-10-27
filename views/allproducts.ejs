@@ -3,20 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Halima's Admin</title>
     <link rel="stylesheet" href="public/css/style.css">
+=======
+    <title>Halima's Admin | <%= title %></title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Function to toggle sidebar visibility on mobile
+        function toggleSidebar() {
+            const sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("active");
+        }
+
+        // Function to toggle dropdown visibility
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const isVisible = dropdown.style.display === "block";
+            dropdown.style.display = isVisible ? "none" : "block";
+        }
+    </script>
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698
 </head>
 <body>
     <div class="sidebar">
         <ul>
+<<<<<<< HEAD
             <li>
                 <a href="#dashboardDropdown" onclick="toggleDropdown('dashboardDropdown')">Dashboard</a>
                 <ul id="dashboardDropdown" style="display: none;">
                     <li><a href="dashboard.html">Dashboard Home</a></li>
+=======
+            <!-- Dashboard Dropdown -->
+            <li>
+                <a href="#dashboardDropdown" onclick="toggleDropdown('dashboardDropdown')">Dashboard</a>
+                <ul id="dashboardDropdown" style="display: none;">
+                    <li><a href="/admin">Dashboard Home</a></li>
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698
                     <li><a href="#">Analytics</a></li>
                 </ul>
             </li>
 
+<<<<<<< HEAD
+=======
+            <!-- Users Dropdown -->
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698
             <li>
                 <a href="#usersDropdown" onclick="toggleDropdown('usersDropdown')">Users</a>
                 <ul id="usersDropdown" style="display: none;">
@@ -26,6 +57,10 @@
                 </ul>
             </li>
 
+<<<<<<< HEAD
+=======
+            <!-- Products Dropdown -->
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698
             <li>
                 <a href="#productsDropdown" onclick="toggleDropdown('productsDropdown')">Products</a>
                 <ul id="productsDropdown" style="display: none;">
@@ -35,6 +70,10 @@
                 </ul>
             </li>
 
+<<<<<<< HEAD
+=======
+            <!-- Settings Dropdown -->
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698
             <li>
                 <a href="#settingsDropdown" onclick="toggleDropdown('settingsDropdown')">Settings</a>
                 <ul id="settingsDropdown" style="display: none;">
@@ -43,6 +82,7 @@
             </li>
         </ul>
     </div>
+<<<<<<< HEAD
 
     <div class="content">
         <h1>Product Added Successfully</h1>
@@ -83,3 +123,9 @@
     </script>
 </body>
 </html>
+=======
+    <!-- Toggle button for mobile -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+</body>
+</html>
+>>>>>>> fb398c777b0cd4656f6777f068378e5e28cfa698

@@ -6,12 +6,12 @@ router.use(express.static('public'));
 
 // Sending home page to user
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/home.html'));
+    res.redirect('admin', { title: 'Home' })
 });
 
 // Sending admin page to user
 router.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/admin.html'));
+    res.render('admin', { title: 'Home' });
 });
 
 // Sending add products page to user
@@ -21,7 +21,7 @@ router.get('/addingProducts', (req, res) => {
 
 // Sending all products page to user
 router.get('/addedProducts', (req, res) => {
-    res.render("allproducts.ejs")
+    res.sendFile(path.join(__dirname, '../public/allproducts.html'));
 });
 
 module.exports = router;
