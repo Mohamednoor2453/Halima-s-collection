@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima's Admin</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Halima's Admin | <%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
     <script>
         // Function to toggle sidebar visibility on mobile
         function toggleSidebar() {
@@ -46,8 +46,8 @@
             <li>
                 <a href="#productsDropdown" onclick="toggleDropdown('productsDropdown')">Products</a>
                 <ul id="productsDropdown" style="display: none;">
-                    <li><a href="/admin/addedProducts">All Products</a></li>
-                    <li><a href="/admin/addingProducts">Add New Product</a></li>
+                    <li><a href="/addedProducts">All Products</a></li>
+                    <li><a href="/addingProducts">Add New Product</a></li>
                     <li><a href="#">Delete Product</a></li>
                 </ul>
             </li>
