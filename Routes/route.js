@@ -21,7 +21,7 @@ router.get('/addingProducts', (req, res) => {
 
 // Sending all products page to user
 router.get('/addedProducts', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/allproducts.html'));
+    res.render('allproducts', { title: 'Products' });
 });
 
 module.exports = router;
