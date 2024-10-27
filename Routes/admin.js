@@ -55,9 +55,8 @@ router.use((req, res, next) => {
 });
 
 // POST new product with image uploads
-router.post('/addingProducts', uploadMiddleware, async (req, res) => {
+router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
     try {
-        
         const { name, description, price, stock, categories } = req.body;
         const images = req.files.map(file => `/uploads/${file.filename}`);
 
@@ -71,7 +70,7 @@ router.post('/addingProducts', uploadMiddleware, async (req, res) => {
         });
 
         await newProduct.save();
-        res.status(200).json({ success: true, message: "Product posted to db successfully" });
+        res.status(300).redirect('/addedProducts');
     } catch (error) {
         console.error("Error adding product:", error.message);
         res.status(500).json({ success: false, error: error.message });
