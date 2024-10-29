@@ -1,12 +1,12 @@
 const express = require('express');
 const path = require('path');
-
+const Product = require('../model/product.js');
 const router = express.Router();
 router.use(express.static('public'));
 
 // Sending home page to user
 router.get('/', (req, res) => {
-    res.redirect('admin', { title: 'Home' })
+    res.redirect('admin', { title: 'Home' });
 });
 
 // Sending admin page to user
@@ -20,8 +20,14 @@ router.get('/addingProducts', (req, res) => {
 });
 
 // Sending all products page to user
-router.get('/addedProducts', (req, res) => {
-    res.render('allproducts', { title: 'Products' });
+router.get('/admin/addedProducts', async (req, res) => {
+    try {
+        const products = await Product.find();
+        res.render('allproducts', { products: products, title: 'Products' });
+    } catch (error) {
+        console.error("Error fetching products:", error.message);
+        res.status(500).render('error', { message: "Internal Server Error", error: error.message });
+    }
 });
 
 module.exports = router;

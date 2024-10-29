@@ -70,7 +70,8 @@ router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
         });
 
         await newProduct.save();
-        res.status(300).redirect('/addedProducts');
+        console.log('Product added successfully');
+        res.status(201).redirect('/admin/addedProducts'); // Changed status to 201 for creation
     } catch (error) {
         console.error("Error adding product:", error.message);
         res.status(500).json({ success: false, error: error.message });
@@ -80,20 +81,20 @@ router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
 // GET all added products
 router.get('/admin/addedProducts', async (req, res) => {
     try {
-        const products = await Product.find();
-        if (products.length === 0) {
-            return res.status(404).json({ success: false, message: "No products available yet" });
-        }
+        const products = await Product.find().sort({ _id: -1 }).limit(6);
+        console.log('Fetched products:', products); // Log fetched products
 
-        // Append host URL to images for client accessibility
+        // Prepare products for rendering
         const updatedProducts = products.map(product => ({
             ...product.toObject(),
             images: product.images.map(image => `${req.protocol}://${req.get('host')}${image}`)
         }));
 
-        res.status(200).json({ success: true, products: updatedProducts });
+        // Pass products to the view
+        res.render('allproducts', { products: updatedProducts });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        console.error("Error fetching products:", error.message);
+        res.status(500).render('error', { message: "Internal Server Error", error: error.message });
     }
 });
 
