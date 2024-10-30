@@ -22,7 +22,7 @@ router.get('/addingProducts', (req, res) => {
 // Sending all products page to user
 router.get('/admin/addedProducts', async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().sort({ _id: -1 }).limit(6);
         res.render('allproducts', { products: products, title: 'Products' });
     } catch (error) {
         console.error("Error fetching products:", error.message);

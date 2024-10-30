@@ -79,22 +79,14 @@ router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
 });
 
 // GET all added products
+// GET route to fetch and display all products
 router.get('/admin/addedProducts', async (req, res) => {
     try {
-        const products = await Product.find().sort({ _id: -1 }).limit(6);
-        console.log('Fetched products:', products); // Log fetched products
-
-        // Prepare products for rendering
-        const updatedProducts = products.map(product => ({
-            ...product.toObject(),
-            images: product.images.map(image => `${req.protocol}://${req.get('host')}${image}`)
-        }));
-
-        // Pass products to the view
-        res.render('allproducts', { products: updatedProducts });
+        const products = await Product.find().sort({ _id: -1 }).limit(6); // Fetch all products from the database
+        res.render('allproducts', { title: 'All Products', products });
     } catch (error) {
         console.error("Error fetching products:", error.message);
-        res.status(500).render('error', { message: "Internal Server Error", error: error.message });
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 
