@@ -233,14 +233,23 @@ form button[type="submit"]:hover {
 
 .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    padding: 0 10px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    margin-left: 120px;
     gap: 20px;
+    
 }
 
+.product-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid;
+}
 .product-images img {
-    width: 100%;
-    height: auto;
+    width: 300px;
+    max-height: 200px;
+    object-fit: cover;
     border-radius: 4px;
     margin-top: 10px;
 }
