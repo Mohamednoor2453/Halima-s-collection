@@ -6,7 +6,7 @@ router.use(express.static('public'));
 
 // Sending home page to user
 router.get('/', (req, res) => {
-    res.redirect('admin', { title: 'Home' });
+    res.render('index');
 });
 
 // Sending admin page to user
@@ -29,5 +29,8 @@ router.get('/admin/addedProducts', async (req, res) => {
         res.status(500).render('error', { message: "Internal Server Error", error: error.message });
     }
 });
+
+
+
 
 module.exports = router;

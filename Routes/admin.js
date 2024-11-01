@@ -90,9 +90,28 @@ router.get('/admin/addedProducts', async (req, res) => {
     }
 });
 
+ // Add this route in admin.js
+router.get('/addedProducts/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.render('detail', { product });
+    } catch (error) {
+        console.error("Error fetching product:", error.message);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+
 // DELETE a product by ID
 router.delete('/admin/deletingProducts/:id', async (req, res) => {
     const productId = req.params.id;
+    
     try {
         const product = await Product.findByIdAndDelete(productId);
 

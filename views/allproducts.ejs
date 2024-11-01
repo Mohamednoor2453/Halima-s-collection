@@ -34,12 +34,12 @@
                         <% product.images.forEach(image => { %>
                             
                             <img src="<%= image %>" alt="Product Image">
+                            
                         <% }) %>
                     </div>
-                    <h3><%= product.name %></h3>
-                    <p><%= product.description %></p>
-                    <p>Price: $<%= product.price %></p>
-                    <p>Stock: <%= product.stock %></p>
+                    <a href="/admin/addedProducts/<%= product._id %>">
+                        <h3><%= product.name %></h3>
+                    </a>
                     
                 </div>
             <% }) %>
