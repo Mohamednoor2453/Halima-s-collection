@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     res.render('index');
 });
 
-// Sending admin page to user
+// Sending admin page to usergi
 router.get('/admin', isAuthenticated,(req, res) => {
     res.render('admin', { title: 'Home' });
 });
