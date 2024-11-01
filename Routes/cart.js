@@ -4,6 +4,7 @@ const router= express.Router()
 
 const Cart = require('../model/cart.js')
 const Product = require('../model/product.js')
+const isAuthenticated = require('../middleware/authMiddleware.js');
 
 // const User = require('../model/user.js')//user model 
 
@@ -64,7 +65,7 @@ router.post('/addcart', async (req, res) => {
 
 //Removing specific Item from cart
 
-router.delete('/removefrom_cart', async (req, res) => {
+router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
     const { userId, productId } = req.body; // Extracting userId and productId from the request body
 
     try {
@@ -101,7 +102,7 @@ router.delete('/removefrom_cart', async (req, res) => {
 
 //view cart
 
-router.get('/view_cart', async(req, res)=>{
+router.get('/view_cart', isAuthenticated, async(req, res)=>{
     const{userId}= req.query
     try {
         let cart = await Cart.findOne({userId})
@@ -110,7 +111,7 @@ router.get('/view_cart', async(req, res)=>{
             return res.status(400).json({message: 'cart has not been created'})
         }
 
-        res.status(200).json({cart})
+        res.status(200).render('viewCart', {cart})
 
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -121,7 +122,7 @@ router.get('/view_cart', async(req, res)=>{
 
 //clearing cart
 
-router.delete('/clear_cart', async(req, res)=>{
+router.delete('/clear_cart', isAuthenticated, async(req, res)=>{
     const {userId}= req.query
 
     try {

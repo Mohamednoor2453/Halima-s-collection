@@ -11,6 +11,11 @@ const router = express.Router()
 //email format validation i.e start with letter end with valid domain name
 const regExEmail = /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z]+\.[a-zA-Z]+$/;
 
+
+// Password regex: must contain at least one uppercase, one lowercase, one number, and one special character, with a minimum length of 8
+const regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+
 //Setting up session midleware
 router.use(
     session({
@@ -29,6 +34,10 @@ router.post('/Register', async(req, res)=>{
 
         if (!regExEmail.test(email)) {
             return res.status(400).json({ message: 'Invalid email format', flash: 'Invalid email format' });
+          }
+
+          if(!regExPassword.test(password)){
+            return res.status(400).json({message: "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.", flash: 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.'})
           }
         let user = await User.findOne({email})
 
@@ -95,7 +104,7 @@ router.post('/Login', async(req, res, done)=>{
 router.post('/Logout', (req, res) => {
     req.session.destroy(err => {
       if (err) {
-        return res.status(500).json({ message: 'Error in logging out' });
+        return res.status(500).json({message: 'Error in logging out' });
       }
       res.status(200).json({ message: 'Logged out successfully', redirectUrl: '/home' });
     });

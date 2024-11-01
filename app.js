@@ -20,6 +20,9 @@ const cartRouter = require('./Routes/cart.js')
 const oderRouter = require('./Routes/oder.js')
 const authRouter = require('./Routes/auth.js')
 
+//authentication middleware
+const isAuthenticated = require('./middleware/authMiddleware.js');
+
 // Middleware for serving static files and parsing body data
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
