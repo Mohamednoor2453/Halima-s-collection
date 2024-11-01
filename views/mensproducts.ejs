@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .category-section {
+            margin-bottom: 30px;
+        }
+        .product-container {
+            display: flex;
+            overflow-x: auto;
+        }
+        .product-item {
+            min-width: 150px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Men’s Products</h1>
+
+    <!-- Men T-shirts Section -->
+    <div class="category-section">
+        <h2>Men’s T-shirts</h2>
+        <div class="product-container">
+            <% tshirts.forEach(product => { %>
+                <div class="product-item">
+                    <% product.images.forEach(image => { %>
+                        <img src="<%= image %>" alt="<%= product.name %>">
+                    <% }) %>
+                    <h3><%= product.name %></h3>
+                    <p>Ksh <%= product.price %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Men Trousers Section -->
+    <div class="category-section">
+        <h2>Men’s Trousers</h2>
+        <div class="product-container">
+            <% trousers.forEach(product => { %>
+                <div class="product-item">
+                    <% product.images.forEach(image => { %>
+                        <img src="<%= image %>" alt="<%= product.name %>">
+                    <% }) %>
+                    <h3><%= product.name %></h3>
+                    <p>Ksh <%= product.price %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Men Shoes Section -->
+    <div class="category-section">
+        <h2>Men’s Shoes</h2>
+        <div class="product-container">
+            <% shoes.forEach(product => { %>
+                <div class="product-item">
+                    <% product.images.forEach(image => { %>
+                        <img src="<%= image %>" alt="<%= product.name %>">
+                    <% }) %>
+                    <h3><%= product.name %></h3>
+                    <p>Ksh <%= product.price %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html>

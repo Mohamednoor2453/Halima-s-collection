@@ -13,7 +13,7 @@ router.post('/addcart', async (req, res) => {
     const { userId, productId, quantity } = req.body;
     try {
         // checking if user has a cart
-        let cart = await Cart.findOne({ userId }); // Use await and correct query
+        let cart = await Cart.findOne({ userId });
 
         // if no cart exists, create one
         if (!cart) {
