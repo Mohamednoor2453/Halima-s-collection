@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.name %> | Product Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1><%= product.name %></h1>
+    <p>Price: $<%= product.price %></p>
+    <p>Description: <%= product.description %></p>
+    <p>Stock: <%= product.stock %></p>
+    <p>Categories: <%= product.categories %></p>
+
+    <div class="product-images">
+        <% product.images.forEach(image => { %>
+            <img src="<%= image %>" alt="Product Image">
+        <% }) %>
+    </div>
+
+    <div class="del-btn">
+        <a class="delete" data-doc="<%= product._id %>">Delete Product</a>
+    </div>
+
+    <a href="/admin/addedProducts">Back to All Products</a>
+
+    <script>
+        const trash = document.querySelector('.delete')
+
+        trash.addEventListener('click', (e) => {
+            const endpoint = `/admin/admin/deletingProducts/${trash.dataset.doc}`;
+
+
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/admin/addedProducts'; // Redirect to the task list after deletion
+                } else {
+                    console.error('Failed to delete the task', response.message);
+                }
+            })
+            .catch(err => console.error(err));
+        });
+            
+        
+            
+    </script>
+</body>
+</html>

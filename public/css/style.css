@@ -253,6 +253,99 @@ form button[type="submit"]:hover {
     border-radius: 4px;
     margin-top: 10px;
 }
+
+.del-btn {
+    display: flex;
+    justify-content: center; /* Align the delete button to the far right */
+  }
+
+  .delete {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #141414; /* Red background */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.delete:active {
+    background-color: black; /* Even darker on click */
+    transform: translateY(0); /* Neutralize lift effect */
+}
+
+.delete:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px #e083a7; /* Add red glow */
+}
+
+
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 60px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    
+  }
+  nav ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  nav li{
+    list-style-type: none;
+    margin-left: 20px;
+  }
+  nav h1{
+    font-size: 30px;
+    
+  }
+  nav p, nav a{
+    color: #1a1818;
+    font-weight: 300;
+  }
+
+  .product-page {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Creates three equal-width columns */
+    gap: 20px; /* Space between each item */
+    padding: 20px;
+}
+
+.product-page div {
+    border: 0.5px solid #ddd; /* Border around each item */
+    padding: 10px;
+    text-align: center;
+    background-color: #fbc2eb;
+}
+
+.product-page img {
+    width: 100%; /* Ensures images take full width of the container */
+    height: auto;
+    margin-bottom: 10px;
+   
+    height: auto;
+}
+
+.product-page a {
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
     /* .image-gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

@@ -9,7 +9,7 @@ router.use(express.static('public'));
 
 // Sending home page to user
 router.get('/', (req, res) => {
-    res.redirect('admin', { title: 'Home' });
+    res.render('index');
 });
 
 // Sending admin page to user
@@ -33,11 +33,6 @@ router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
     }
 });
 
-//rendering cart routes
-
-router.get('/addcart', isAuthenticated, (req, res)=>{
-    res.render('addTocart')
-})
 
 
 
