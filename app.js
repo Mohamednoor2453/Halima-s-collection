@@ -3,6 +3,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const methodOverride = require('method-override')
 const bodyParser = require('body-parser');
 const ejs = require('ejs')
 
@@ -21,6 +22,7 @@ const oderRouter = require('./Routes/oder.js')
 const authRouter = require('./Routes/auth.js')
 
 // Middleware for serving static files and parsing body data
+app.use(methodOverride('_method'));
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,7 +37,6 @@ app.use('/products', productRouter)
 app.use('/cart', cartRouter)
 app.use('/oder', oderRouter)
 app.use('/auth', authRouter)
-
 
 
 

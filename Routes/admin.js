@@ -109,6 +109,7 @@ router.get('/addedProducts/:id', async (req, res) => {
 
 
 // DELETE a product by ID
+
 router.delete('/admin/deletingProducts/:id', async (req, res) => {
     const productId = req.params.id;
     
@@ -135,8 +136,26 @@ router.delete('/admin/deletingProducts/:id', async (req, res) => {
     }
 });
 
+
+// Route to get product details for updating
+router.get('/updateProduct/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.render('update', { product });
+    } catch (error) {
+        console.error("Error fetching product for update:", error.message);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // PUT (Update) a product by ID
-router.put('/admin/updateProduct/:id', uploadMiddleware, async (req, res) => {
+router.put('/updateProduct/:id', uploadMiddleware, async (req, res) => {
     const productId = req.params.id;
     const { name, description, price, stock, categories } = req.body;
 
@@ -173,8 +192,8 @@ router.put('/admin/updateProduct/:id', uploadMiddleware, async (req, res) => {
             { new: true }
         );
 
-        res.status(200).json({ success: true, message: "Product updated successfully", product: updatedProduct });
-    } catch (error) {
+        res.redirect('/admin/addedProducts');
+        } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
 });
