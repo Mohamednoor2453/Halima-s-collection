@@ -26,6 +26,7 @@ router.use(
     })
   );
 
+  const adminMail = process.env.ADMIN_EMAIL
 
 router.post('/Register', async(req, res)=>{
     
@@ -87,7 +88,7 @@ router.post('/Login', async(req, res, done)=>{
             email: user.email
         }
 
-        if(user.email === 'halima14collection550@gmail.com'){
+        if(user.email === adminMail){
             return res.status(200).json({message:'Login successfully',  redirectUrl: '/admin' })
         }
         else {
