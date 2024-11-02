@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Update Product</h1>
+    <form action="/admin/updateProduct/<%= product._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <!-- Product Name -->
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" value="<%= product.name %>" required><br>
+
+        <!-- Description -->
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required><%= product.description %></textarea><br>
+
+        <!-- Price -->
+        <label for="price">Price (in Ksh):</label>
+        <input type="number" id="price" name="price" step="0.01" value="<%= product.price %>" required><br>
+
+        <!-- Stock -->
+        <label for="stock">Stock Quantity:</label>
+        <input type="number" id="stock" name="stock" value="<%= product.stock %>" required><br>
+
+        <!-- Categories -->
+        <label for="categories">Categories:</label>
+        <select id="categories" name="categories" required>
+            <option value="sneakers" <%= product.categories === "sneakers" ? "selected" : "" %>>Sneakers</option>
+            <option value="men-tshirt" <%= product.categories === "men-tshirt" ? "selected" : "" %>>Men-Tshirt</option>
+            <!-- Add other categories as needed -->
+        </select><br>
+
+        <!-- Images (optional) -->
+        <label for="images">Product Images (optional):</label>
+        <input type="file" id="images" name="images" accept="image/*" multiple><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Update Product</button>
+    </form>
+
+    <a href="/admin/addedProducts">Back to All Products</a>
+</body>
+</html>
+
+</body>
+</html>

@@ -18,11 +18,17 @@
             <img src="<%= image %>" alt="Product Image">
         <% }) %>
     </div>
-
+ <div class="btns">
     <div class="del-btn">
         <a class="delete" data-doc="<%= product._id %>">Delete Product</a>
     </div>
 
+    <div class="update-btn">
+        <a href="/admin/updateProduct/<%= product._id %>" class="update">Update Product</a>
+    </div>
+</div>
+    
+    
     <a href="/admin/addedProducts">Back to All Products</a>
 
     <script>
