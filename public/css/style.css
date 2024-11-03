@@ -256,6 +256,19 @@ form button[type="submit"]:hover {
     border-radius: 4px;
     margin-top: 10px;
 }
+
+.register {
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.register a {
+    margin: 20px;
+    text-decoration: none;
+    color: rgb(22, 21, 21);
+   
+}
 .btns {
     display: flex;
     justify-content: flex-end;
@@ -345,6 +358,7 @@ nav{
     border-bottom: 1px solid #ddd;
     
   }
+
   nav ul{
     display: flex;
     justify-content: space-between;
