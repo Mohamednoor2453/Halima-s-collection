@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div>
+        <nav>
+            <div class="site-title">
+                <a href="/"><h1>Halima Collection</h1></a>
+                <p class="font-semibold">Your One Stop Shop</p>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products/womensproducts">Women</a></li>
+                <li><a href="/products/mensproducts">Men</a></li>
+                <li><a href="/products/sneakers">Sneakers</a></li>
+                <li><a href="/products/accessories">Accessories</a></li>
+            </ul>
+        </nav>
+            </div>
+            <div class="addcart-product-item">
+                    
+                <% product.images.forEach(image => { %>
+                    <img src="<%= image %>" alt="<%= product.name %>" class="accessory-product-image">
+                <% }) %>
+            <h3 class="accessory-product-name"><%= product.name %></h3>
+            <p class="accessory-product-price">Ksh <%= product.price %></p>
+            <p class="accessory-product-price"> <%= product.description %></p>
+            <p class="accessory-product-price"> <%= product.stock %> available</p>
+            <input type="number" id="quantity" name="quantity" min="1" max="<%= product.stock %>" value="1">
+            <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+            </div>
+
+            <script>
+              
+    async function addToCart(productId) {
+        const userId = '670912936d5a6de48fd73b82';
+        const quantity = document.getElementById('quantity').value;
+
+        try {
+            const response = await fetch('/cart/addcart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId, productId, quantity: Number(quantity) })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert("Product added to cart successfully!");
+            } else {
+                alert("Error: " + data.message);
+            }
+        } catch (error) {
+            console.error("Error adding product to cart:", error);
+        }
+    }
+</script>
+
+            
+</body>
+</html>

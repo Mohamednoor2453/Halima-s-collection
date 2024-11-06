@@ -28,7 +28,7 @@ router.use(
 
   const adminMail = process.env.ADMIN_EMAIL
 
-router.post('/Register', async(req, res)=>{
+router.post('/register', async(req, res)=>{
     
     const {email, password} = req.body
     try {
@@ -64,7 +64,7 @@ router.post('/Register', async(req, res)=>{
 
 })
 
-router.post('/Login', async(req, res, done)=>{
+router.post('/login', async(req, res, done)=>{
     const {email, password} = req.body
 
     try {

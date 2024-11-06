@@ -8,6 +8,7 @@ const isAuthenticated = require('../middleware/authMiddleware.js');
 
 // const User = require('../model/user.js')//user model 
 
+
 //Add to cart functionality
 
 router.post('/addcart', async (req, res) => {
@@ -102,8 +103,8 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 
 //view cart
 
-router.get('/view_cart', isAuthenticated, async(req, res)=>{
-    const{userId}= req.query
+router.get('/view_cart',  async(req, res)=>{
+    const userId= '670912936d5a6de48fd73b82'
     try {
         let cart = await Cart.findOne({userId})
 
@@ -111,7 +112,7 @@ router.get('/view_cart', isAuthenticated, async(req, res)=>{
             return res.status(400).json({message: 'cart has not been created'})
         }
 
-        res.status(200).render('viewCart', {cart})
+        res.status(200).render('viewcart', {cart})
 
     } catch (error) {
         res.status(500).json({error: error.message})

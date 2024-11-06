@@ -4,8 +4,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #fbc2eb, #a6c1ee); Soft peach to pink
-
+    /* background: linear-gradient(to right, #fbc2eb, #a6c1ee);  */
+    padding-top: 80px;
+    background-color: #f8f5f6e7;
 }
 
 .sidebar {
@@ -350,14 +351,17 @@ form button[type="submit"]:hover {
 .custom-background {
     background-color: #2c3e50 !important;
 }
-nav{
+nav {
+    position: fixed; /* Fixes the navbar to the top */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensures it spans the full width */
     display: flex;
     justify-content: space-evenly;
-    margin-bottom: 60px;
-    padding-bottom: 10px;
+    padding: 10px 0;
+    z-index: 1000; /* Keeps it above other content */
     border-bottom: 1px solid #ddd;
-    
-  }
+}
 
   nav ul{
     display: flex;
@@ -368,12 +372,13 @@ nav{
     list-style-type: none;
     margin-left: 20px;
   }
+  
   nav h1{
     font-size: 30px;
     
   }
   nav p, nav a{
-    color: #1a1818;
+    color: #111111;
     font-weight: 300;
   }
 
@@ -381,7 +386,7 @@ nav{
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Creates three equal-width columns */
     gap: 20px; /* Space between each item */
-    padding: 20px;
+    padding-top: 80px;
     margin-left: 100px;
     place-items: center;
 }
@@ -413,6 +418,7 @@ nav{
     grid-template-columns: repeat(6, 1fr); /* Creates three equal-width columns */
     gap: 20px; /* Space between each item */
     padding: 20px;
+    
 }
 
 .popular-section div {
@@ -427,12 +433,411 @@ nav{
     text-decoration: none;
     font-weight: bold;
 }
+
+/* sneaker styling*/
+.sneaker-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+}
+
+
+/* Container for sneaker items */
+.sneaker-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual sneaker item styling */
+.sneaker-item {
+    background-color: #f8f5f6e7;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sneaker-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sneaker-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sneaker-item h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.sneaker-item p {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Women’s Section Styling */
+.women-category-section {
+    background-color: #f8f5f6e7; /* Light pink background */
+    padding: 20px;
+    text-align:left;
+}
+
+.women-section-title {
+    color: #d81b60; /* Deep pink color */
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    margin-top: 60px;
+}
+
+.women-product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.women-product-item {
+    background-color: #fff;
+    border: 1px solid #f7f4f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+}
+
+.women-product-item a {
+    text-decoration: none;
+    color: #494545;
+}
+
+.women-product-item a:hover {
+    color: rgb(216, 156, 166);
+}
+
+.women-product-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.women-product-name {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.women-product-price {
+    font-size: 1rem;
+    color: #d81b60;
+    font-weight: bold;
+}
+
+/* men section */
+
+.men-category-section {
+    background-color: #f8f5f6e7; /* Light pink background */
+    padding: 20px;
+    text-align:left;
+}
+
+.men-section-title {
+    color: #130ff3;; /* Deep pink color */
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    margin-top: 80px;
+}
+
+.men-product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.men-product-item {
+    background-color: #fff;
+    border: 1px solid #f7f4f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+}
+
+.men-product-item a {
+    text-decoration: none;
+    color: #494545;
+}
+
+.men-product-item a:hover {
+    color: rgb(102, 119, 216);
+}
+
+.men-product-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.men-product-name {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.men-product-price {
+    font-size: 1rem;
+    color: #130ff3;
+    font-weight: bold;
+}
+
+.accessory-category-section {
+    background-color: #f8f5f6e7; /* Light pink background */
+    padding: 20px;
+    text-align:left;
+}
+
+.accessory-section-title {
+    color: #71f5c2;; /* Deep pink color */
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    margin-top: 80px;
+}
+
+.accessory-product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.accessory-product-item {
+    background-color: #fff;
+    border: 1px solid #f7f4f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+}
+
+.accessory-product-item a {
+    text-decoration: none;
+    color: #494545;
+}
+
+.accessory-product-item a:hover {
+    color: rgb(93, 216, 179);
+}
+
+.accessory-product-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.accessory-product-name {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.accessory-product-price {
+    font-size: 1rem;
+    color: #71f5c2;
+    font-weight: bold;
+}
+
+.addcart-product-item {
+    margin-top: 60px;
+    background-color: #fff;
+    border: 1px solid #f7f4f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    align-items: center;
+}
+
+.view-cart {
+    background-color: #f8f5f6e7;
+    border: 1px solid #f7f4f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 200px;
+    align-items: center;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.login-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.login-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.login-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+.form-footer {
+    margin-top: 1rem;
+    text-align: center;
+    color: #555;
+}
+
+.form-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.register-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.register-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.register-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #28a745;
+    color: #ffffff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.register-btn:hover {
+    background-color: #218838;
+}
+
+.form-footer {
+    margin-top: 1rem;
+    text-align: center;
+    color: #555;
+}
+
+.form-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
 /* Footer Styling */
 .footer {
-    background-color: #2c3e50;
+    background-color: #0c0b0a;
     color: #ecf0f1;
     padding: 20px 0;
     font-family: Arial, sans-serif;
+    margin-top: 50px;
 }
 
 .footer-content {
@@ -465,12 +870,15 @@ nav{
 }
 
 .footer-section ul li a {
-    color: #bdc3c7;
+    color: #edf2f5;
     text-decoration: none;
 }
 
 .footer-section ul li a:hover {
     color: #ffffff;
+}
+.footer-section .social a {
+    color: #ffffff; /* Ensure the icons are white */
 }
 
 .footer-section .social a img {
