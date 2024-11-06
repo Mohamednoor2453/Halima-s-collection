@@ -4,56 +4,61 @@ const router= express.Router()
 
 const Cart = require('../model/cart.js')
 const Product = require('../model/product.js')
-const isAuthenticated = require('../middleware/authMiddleware.js');
+// const isAuthenticated = require('../middleware/authMiddleware.js');
+const auth = require('./auth.js')
 
-// const User = require('../model/user.js')//user model 
+const User = require('../model/user.js')//user model 
 
 //Add to cart functionality
 
 router.post('/addcart', async (req, res) => {
     const { userId, productId, quantity } = req.body;
     try {
-        // checking if user has a cart
+        // Checking if the user has a cart
         let cart = await Cart.findOne({ userId });
 
-        // if no cart exists, create one
+        // If no cart exists, create one
         if (!cart) {
             cart = new Cart({
                 userId,
-                items: [], // Initialize items as an empty array
+                items: [],
                 totalItem: 0,
                 cartTotalPrice: 0
             });
         }
 
-        // checking if product exists in Db
+        // Check if the product exists in the database
         const product = await Product.findById(productId);
         if (!product) {
             return res.status(400).json({ message: 'Product is not yet available' });
         }
 
-        // checking if product exists in the cart
-        const existProductIndex = cart.items.findIndex(item => item.productId.toString() === productId.toString());
+        // Check if the product already exists in the cart
+        const existProductIndex = cart.items.findIndex(
+            item => item.productId.toString() === productId.toString()
+        );
 
-        // if product exists, update its quantity and total price
+        // If product exists, update its quantity and total price
         if (existProductIndex > -1) {
             cart.items[existProductIndex].quantity += quantity;
-            cart.items[existProductIndex].totalPrice += quantity * product.price;
+            cart.items[existProductIndex].totalPrice =
+                cart.items[existProductIndex].quantity * product.price;
         } else {
             // Product is not in the cart, add it as a new item
             cart.items.push({
-                productId: productId,
+                productId: product._id, // Make sure to use the correct product ID
                 quantity: quantity,
                 price: product.price,
                 totalPrice: quantity * product.price
             });
         }
 
-        // Recalculating total items in the cart and its price
+        // Recalculating total items and the cart's total price
         cart.totalItem = cart.items.reduce((total, item) => total + item.quantity, 0);
         cart.cartTotalPrice = cart.items.reduce((total, item) => total + item.totalPrice, 0);
 
-        await cart.save(); // Save the updated cart to the database
+        // Save the updated cart to the database
+        await cart.save();
 
         res.status(200).json({ message: "Product added to cart successfully", cart });
 
@@ -65,7 +70,7 @@ router.post('/addcart', async (req, res) => {
 
 //Removing specific Item from cart
 
-router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
+router.delete('/removefrom_cart', async (req, res) => {
     const { userId, productId } = req.body; // Extracting userId and productId from the request body
 
     try {
@@ -102,7 +107,7 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 
 //view cart
 
-router.get('/view_cart', isAuthenticated, async(req, res)=>{
+router.get('/view_cart', async(req, res)=>{
     const{userId}= req.query
     try {
         let cart = await Cart.findOne({userId})
@@ -111,7 +116,7 @@ router.get('/view_cart', isAuthenticated, async(req, res)=>{
             return res.status(400).json({message: 'cart has not been created'})
         }
 
-        res.status(200).render('viewCart', {cart})
+        res.status(200).json({cart})
 
     } catch (error) {
         res.status(500).json({error: error.message})
@@ -122,29 +127,25 @@ router.get('/view_cart', isAuthenticated, async(req, res)=>{
 
 //clearing cart
 
-router.delete('/clear_cart', isAuthenticated, async(req, res)=>{
-    const {userId}= req.query
+// Clearing the entire cart from the database
+router.delete('/clear_cart', async (req, res) => {
+    const { userId } = req.query;
 
     try {
-        let cart = await Cart.findOne({userId})
+        // Attempt to delete the cart linked to the user
+        const result = await Cart.deleteOne({ userId });
 
-        if(!cart){
-            return res.status(400).json({message: 'cart not found'})
+        // Check if the cart was found and deleted
+        if (result.deletedCount === 0) {
+            return res.status(400).json({ message: 'Cart not found' });
         }
 
-        //clearing cart
-
-        cart.items = [];
-        cart.totalPrice = 0;
-        cart.totalItem = 0;
-
-        await cart.save()
-
-        res.status(200).json({message: 'cart cleared successfully', cart})
+        res.status(200).json({ message: 'Cart cleared successfully' });
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({ error: error.message });
     }
-})
+});
+
 
 
 module.exports = router
