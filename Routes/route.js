@@ -13,17 +13,17 @@ router.get('/', (req, res) => {
 });
 
 // Sending admin page to usergi
-router.get('/admin', isAuthenticated,(req, res) => {
+router.get('/admin', (req, res) => {
     res.render('admin', { title: 'Home' });
 });
 
 // Sending add products page to user
-router.get('/addingProducts', isAuthenticated,(req, res) => {
+router.get('/addingProducts', (req, res) => {
     res.render('addproducts.ejs');
 });
 
 // Sending all products page to user
-router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
+router.get('/admin/addedProducts',  async (req, res) => {
     try {
         const products = await Product.find().sort({ _id: -1 }).limit(6);
         res.render('allproducts', { products: products, title: 'Products' });
@@ -32,6 +32,16 @@ router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
         res.status(500).render('error', { message: "Internal Server Error", error: error.message });
     }
 });
+
+
+router.get('/register', (req, res) => {
+    res.render('register');
+});
+
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
 
 
 

@@ -201,5 +201,8 @@
   "bugs": {
     "url": "https://github.com/Mohamednoor2453/Halima-s-collection/issues"
   },
-  "homepage": "https://github.com/Mohamednoor2453/Halima-s-collection#readme"
+  "homepage": "https://github.com/Mohamednoor2453/Halima-s-collection#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.14"
+  }
 }

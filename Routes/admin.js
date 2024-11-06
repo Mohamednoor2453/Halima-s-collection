@@ -56,7 +56,7 @@ router.use((req, res, next) => {
 });
 
 // POST new product with image uploads
-router.post('/admin/addingProducts', isAuthenticated, uploadMiddleware, async (req, res) => {
+router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
     try {
         const { name, description, price, stock, categories } = req.body;
         const images = req.files.map(file => `/uploads/${file.filename}`);
@@ -83,7 +83,7 @@ router.post('/admin/addingProducts', isAuthenticated, uploadMiddleware, async (r
 // GET route to fetch and display all products
 router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
     try {
-        const products = await Product.find().sort({ _id: -1 }).limit(6); // Fetch all products from the database
+        const products = await Product.find().sort({ _id: -1 }).limit(4); // Fetch all products from the database
         res.render('allproducts', { title: 'All Products', products });
     } catch (error) {
         console.error("Error fetching products:", error.message);
@@ -110,7 +110,12 @@ router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
 
 
 // DELETE a product by ID
-router.delete('/admin/deletingProducts/:id', isAuthenticated,  async (req, res) => {
+<<<<<<<<< Temporary merge branch 1
+
+router.delete('/admin/deletingProducts/:id', async (req, res) => {
+=========
+router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) => {
+>>>>>>>>> Temporary merge branch 2
     const productId = req.params.id;
     
     try {
@@ -155,7 +160,11 @@ router.get('/updateProduct/:id', async (req, res) => {
 });
 
 // PUT (Update) a product by ID
-router.put('/admin/updateProduct/:id', uploadMiddleware, async (req, res) => {
+<<<<<<<<< Temporary merge branch 1
+router.put('/updateProduct/:id', uploadMiddleware, async (req, res) => {
+=========
+router.put('/admin/updateProduct/:id', isAuthenticated, uploadMiddleware, async (req, res) => {
+>>>>>>>>> Temporary merge branch 2
     const productId = req.params.id;
     const { name, description, price, stock, categories } = req.body;
 

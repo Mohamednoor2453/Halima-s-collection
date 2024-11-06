@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima's Collection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css"> <!-- Ensure correct path to style.css -->
+    <title>View Cart</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
     <div>
         <nav>
             <div class="site-title">
@@ -19,38 +19,33 @@
                 <li><a href="/products/womensproducts">Women</a></li>
                 <li><a href="/products/mensproducts">Men</a></li>
                 <li><a href="/products/sneakers">Sneakers</a></li>
-                <li><a href="/accessories">Accessories</a></li>
+                <li><a href="/products/accessories">Accessories</a></li>
             </ul>
-            <div class="register">
-                <a href="/login">Log In</a>
-                <a href="/signup">Sign Up</a>
-                <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
-            </div>
         </nav>
-    </div>
-     
-    
-    <div class="accessory-category-section">
-        <h2 class="accessory-section-title">Accessories</h2>
-        <div class="accessory-product-container">
-            <% accessories.forEach(product => { %>
-                <div class="accessory-product-item">
-                    
-                    <% product.images.forEach(image => { %>
-                        <img src="<%= image %>" alt="<%= product.name %>" class="accessory-product-image">
-                    <% }) %>
-                    <a href="/products/<%= product.category || 'accessories' %>/<%= product._id %>">
-                        <h3 class="product-name"><%= product.name %></h3>
-                    </a>
-                    
-                    
-                    <p class="accessory-product-price">Ksh <%= product.price %></p>
-                    
-                </div>
-            <% }) %>
-        </div>
-    </div>
+            </div>
 
+    <div class="view-cart">
+         <h1>Your Shopping Cart</h1>
+
+    <% if (cart && cart.items.length > 0) { %>
+        <ul>
+            <% cart.items.forEach(item => { %>
+                <li>
+                    <img src="/uploads/<%= item.image %>" alt="<%= item.name %>">
+                    <h3>Product: <%= item.productId.name %></h3>
+                    <p>Quantity: <%= item.quantity %></p>
+                    <p>Price: Ksh <%= item.price %></p>
+                    <p>Total Price: Ksh <%= item.totalPrice %></p>
+                </li>
+            <% }) %>
+        </ul>
+        <p>Total Items: <%= cart.totalItem %></p>
+        <p>Total Cart Price: Ksh <%= cart.cartTotalPrice %></p>
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+    </div>
+   
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section about">
@@ -71,10 +66,12 @@
                 
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                
             </div>
         </div>
         <div class="footer-bottom">
             &copy; 2024 Halima Collection. All Rights Reserved.
         </div>
     </footer>
+ 
+</body>
+</html>

@@ -27,9 +27,10 @@ router.get('/mensproducts', async (req, res) => {
 router.get('/womensproducts', async (req, res) => {
     try {
         const shoes = await getProductsByCategory('women-shoes');
-        const clothings = await getProductsByCategory('women-trousers');
+        const trousers = await getProductsByCategory('women-trousers');
+        const clothing = await getProductsByCategory('women-clothing')
 
-        res.status(200).render('womensproducts', { title: "Women's Products", shoes, clothings });
+        res.status(200).render('womensproducts', { title: "Women's Products", shoes, trousers, clothing });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -54,6 +55,24 @@ router.get('/accessories', async (req, res) => {
         res.status(200).render('accessories', { title: 'Accessories', accessories });
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+});
+
+
+
+router.get('/:category/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.render('addcart', { product });
+    } catch (error) {
+        console.error("Error fetching product:", error.message);
+        res.status(500).json({ success: false, error: error.message });
     }
 });
 

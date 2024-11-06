@@ -5,69 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .category-section {
-            margin-bottom: 30px;
-        }
-        .product-container {
-            display: flex;
-            overflow-x: auto;
-        }
-        .product-item {
-            min-width: 150px;
-            margin: 0 10px;
-        }
+    
     </style>
 </head>
 <body>
-    <h1>Men’s Products</h1>
+    <div>
+        <nav>
+            <div class="site-title">
+                <a href="/"><h1>Halima Collection</h1></a>
+                <p class="font-semibold">Your One Stop Shop</p>
+            </div>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products/womensproducts">Women</a></li>
+                <li><a href="/products/mensproducts">Men</a></li>
+                <li><a href="/products/sneakers">Sneakers</a></li>
+                <li><a href="/accessories">Accessories</a></li>
+            </ul>
+            <div class="register">
+                <a href="/login">Log In</a>
+                <a href="/signup">Sign Up</a>
+                <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
+
+            </div>
+        </nav>
+    </div>
 
     <!-- Men T-shirts Section -->
-    <div class="category-section">
-        <h2>Men’s T-shirts</h2>
-        <div class="product-container">
+    <div class="men-section">
+        <h2 class="men-section-title">Men T-shirts</h2>
+        <div class="men-product-container">
             <% tshirts.forEach(product => { %>
-                <div class="product-item">
+                <div class="men-product-item">
                     <% product.images.forEach(image => { %>
-                        <img src="<%= image %>" alt="<%= product.name %>">
+                        <img src="<%= image %>" alt="<%= product.name %>" class=men-product-image>
                     <% }) %>
-                    <h3><%= product.name %></h3>
-                    <p>Ksh <%= product.price %></p>
+                    <a href="/products/<%= product.category || 'tshirts' %>/<%= product._id %>">
+                        <h3 class="product-name"><%= product.name %></h3>
+                    </a>                    <p class="men-product-price">Ksh <%= product.price %></p>
                 </div>
             <% }) %>
         </div>
     </div>
 
     <!-- Men Trousers Section -->
-    <div class="category-section">
-        <h2>Men’s Trousers</h2>
-        <div class="product-container">
+    <div class="men-section">
+        <h2 class="men-section-title">Men Trousers</h2>
+        <div class="men-product-container">
             <% trousers.forEach(product => { %>
-                <div class="product-item">
+                <div class="men-product-item">
                     <% product.images.forEach(image => { %>
-                        <img src="<%= image %>" alt="<%= product.name %>">
+                        <img src="<%= image %>" alt="<%= product.name %>" class=men-product-image>
                     <% }) %>
-                    <h3><%= product.name %></h3>
-                    <p>Ksh <%= product.price %></p>
+                    <a href="/products/<%= product.category || 'trousers' %>/<%= product._id %>">
+                        <h3 class="product-name"><%= product.name %></h3>
+                    </a>                    <p class="men-product-price">Ksh <%= product.price %></p>
                 </div>
             <% }) %>
         </div>
     </div>
 
     <!-- Men Shoes Section -->
-    <div class="category-section">
-        <h2>Men’s Shoes</h2>
-        <div class="product-container">
+    <div class="men-section">
+        <h2 class="men-section-title">Men Shoes</h2>
+        <div class="men-product-container">
             <% shoes.forEach(product => { %>
-                <div class="product-item">
+                <div class="men-product-item">
                     <% product.images.forEach(image => { %>
-                        <img src="<%= image %>" alt="<%= product.name %>">
+                        <img src="<%= image %>" alt="<%= product.name %>" class=men-product-image>
                     <% }) %>
-                    <h3><%= product.name %></h3>
-                    <p>Ksh <%= product.price %></p>
+                    <a href="/products/<%= product.category || 'shoes' %>/<%= product._id %>">
+                        <h3 class="product-name"><%= product.name %></h3>
+                    </a>
+                    <p class="men-product-price">Ksh <%= product.price %></p>
                 </div>
             <% }) %>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>Your go-to source for fashion and style. Discover our curated collection.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/mensproducts">Men</a></li>
+                    <li><a href="/womensproducts">Women</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Halima Collection. All Rights Reserved.
+        </div>
+    </footer>
 </body>
 </html>
