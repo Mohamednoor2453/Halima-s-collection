@@ -91,8 +91,8 @@ router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
     }
 });
 
- 
-router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
+ // Add this route in admin.js
+router.get('/addedProducts/:id', async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
@@ -110,12 +110,7 @@ router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
 
 
 // DELETE a product by ID
-<<<<<<<<< Temporary merge branch 1
-
-router.delete('/admin/deletingProducts/:id', async (req, res) => {
-=========
 router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) => {
->>>>>>>>> Temporary merge branch 2
     const productId = req.params.id;
     
     try {
@@ -160,11 +155,7 @@ router.get('/updateProduct/:id', async (req, res) => {
 });
 
 // PUT (Update) a product by ID
-<<<<<<<<< Temporary merge branch 1
-router.put('/updateProduct/:id', uploadMiddleware, async (req, res) => {
-=========
 router.put('/admin/updateProduct/:id', isAuthenticated, uploadMiddleware, async (req, res) => {
->>>>>>>>> Temporary merge branch 2
     const productId = req.params.id;
     const { name, description, price, stock, categories } = req.body;
 
