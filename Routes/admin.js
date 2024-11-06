@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 const Product = require('../model/product.js');
+const isAuthenticated = require('../middleware/authMiddleware.js');
 
 // Ensure the 'uploads' directory exists
 const uploadDir = path.join(__dirname, '../uploads');
@@ -80,9 +81,9 @@ router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
 
 // GET all added products
 // GET route to fetch and display all products
-router.get('/admin/addedProducts', async (req, res) => {
+router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
     try {
-        const products = await Product.find().sort({ _id: -1 }).limit(6); // Fetch all products from the database
+        const products = await Product.find().sort({ _id: -1 }).limit(4); // Fetch all products from the database
         res.render('allproducts', { title: 'All Products', products });
     } catch (error) {
         console.error("Error fetching products:", error.message);
@@ -109,8 +110,7 @@ router.get('/addedProducts/:id', async (req, res) => {
 
 
 // DELETE a product by ID
-
-router.delete('/admin/deletingProducts/:id', async (req, res) => {
+router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) => {
     const productId = req.params.id;
     
     try {
@@ -155,7 +155,7 @@ router.get('/updateProduct/:id', async (req, res) => {
 });
 
 // PUT (Update) a product by ID
-router.put('/updateProduct/:id', uploadMiddleware, async (req, res) => {
+router.put('/admin/updateProduct/:id', isAuthenticated, uploadMiddleware, async (req, res) => {
     const productId = req.params.id;
     const { name, description, price, stock, categories } = req.body;
 

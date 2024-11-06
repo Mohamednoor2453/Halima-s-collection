@@ -1,22 +1,63 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const Product = require('../model/product.js')
+const express = require('express');
+const mongoose = require('mongoose');
+const Product = require('../model/product.js');
 
-const router = express.Router()
+const router = express.Router();
 
+// Helper function to get products by category
+const getProductsByCategory = async (category, limit = 6) => {
+    return await Product.find({ categories: category }).sort({ _id: -1 }).limit(limit);
+};
 
-// Fetch limited products for homepage display
-router.get('/homepage-products', async (req, res) => {
+// Route for men's products
+router.get('/mensproducts', async (req, res) => {
     try {
-        // Fetch a limited number of products, e.g., 6
-        const products = await Product.find().limit(6); 
-        res.status(200).json({ success: true, products });
+        const tshirts = await getProductsByCategory('men-tshirt');
+        const trousers = await getProductsByCategory('men-trousers');
+        const shoes = await getProductsByCategory('men-shoes');
+        const suits = await getProductsByCategory('suits');
+
+        res.status(200).render('mensproducts', { title: 'Men’s Products', tshirts, trousers, shoes, suits });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
-// Search products by category
+// Route for women's products
+router.get('/womensproducts', async (req, res) => {
+    try {
+        const shoes = await getProductsByCategory('women-shoes');
+        const clothings = await getProductsByCategory('women-trousers');
+
+        res.status(200).render('womensproducts', { title: "Women's Products", shoes, clothings });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Route for sneakers
+router.get('/sneakers', async (req, res) => {
+    try {
+        const sneakers = await getProductsByCategory('sneakers');
+
+        res.status(200).render('sneakers', { title: 'Sneakers', sneakers });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Route for accessories
+router.get('/accessories', async (req, res) => {
+    try {
+        const accessories = await getProductsByCategory('accessories');
+
+        res.status(200).render('accessories', { title: 'Accessories', accessories });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Search products by category and other filters
 router.get('/search', async (req, res) => {
     try {
         // Get query parameters
@@ -29,11 +70,11 @@ router.get('/search', async (req, res) => {
         if (minPrice) query.price = { $gte: Number(minPrice) };
         if (maxPrice) query.price = { $lte: Number(maxPrice) };
 
-        const products = await Product.find(query);
-        res.status(200).json(products);
+        const products = await Product.find(query).sort({ _id: -1 }).limit(6);
+        res.status(200).render('home', { products });
     } catch (err) {
-        res.status(500).json({ message: 'Error occurred while searching for products', error: err });
+        res.status(500).json({ message: 'Error occurred while searching for products', error: err.message });
     }
 });
 
-module.exports = router
+module.exports = router;
