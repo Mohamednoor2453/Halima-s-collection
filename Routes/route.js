@@ -42,6 +42,12 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+//rendering oderForm page
+
+router.get('/oderForm', (req, res) => {
+    const userId = req.query.userId;
+    res.render('oderForm.ejs', { userId });
+});
 
 
 

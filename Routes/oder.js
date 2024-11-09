@@ -6,12 +6,13 @@ const Oder = require('../model/oder.js');
 
 const router = express.Router();
 
-async function sendMail(userEmail, orderDetails, destination) {
+// Function to send email
+async function sendMail(userEmail, orderDetails, destination, phone) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'halima14collection@gmail.com',
-            pass: 'sage xjmz scsz tosl'
+            pass: 'sage xjmz scsz tosl' // Ensure this is correct or use environment variables
         }
     });
 
@@ -19,14 +20,16 @@ async function sendMail(userEmail, orderDetails, destination) {
         from: 'halima14collection@gmail.com',
         to: userEmail,
         subject: 'Your Order Details',
-        text: `Your order has been placed successfully! \n\nOrder Details: \n${orderDetails}\n\nDelivery Destination: ${destination}`
+        text: `Your order has been placed successfully! \n\nOrder Details: \n${orderDetails}\n\nDelivery Destination: ${destination}\nPhone: ${phone}`
     };
 
     return transporter.sendMail(mailOptions);
 }
 
+// Checkout route
 router.post('/checkout', async (req, res) => {
-    const { userId, email, destination } = req.body;
+    console.log('Checkout route hit');
+    const { userId, email, destination, phone } = req.body;
 
     try {
         // Find the cart for the user
@@ -65,7 +68,8 @@ router.post('/checkout', async (req, res) => {
             userId: cart.userId,
             items: cart.items,
             totalItems: cart.totalItem,
-            totalPrice: cart.cartTotalPrice
+            totalPrice: cart.cartTotalPrice,
+            status: 'Pending'
         });
 
         await order.save();
@@ -77,14 +81,14 @@ router.post('/checkout', async (req, res) => {
             await product.save();
         }
 
-        // Mark the cart as completed or clear it
+        // Clear the cart
         cart.items = [];
         cart.totalItem = 0;
         cart.cartTotalPrice = 0;
         await cart.save();
 
         // Send email with order details
-        await sendMail(email, orderDetails, destination);
+        await sendMail(email, orderDetails, destination, phone);
 
         res.status(200).json({ message: 'Checkout completed successfully', order });
 
@@ -92,5 +96,6 @@ router.post('/checkout', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 module.exports = router;

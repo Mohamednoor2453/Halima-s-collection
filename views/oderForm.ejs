@@ -7,15 +7,18 @@
 </head>
 <body>
     <h1>Order Form</h1>
-    <form action="/order/checkout" method="POST">
+    <form action="/oder/checkout" method="POST">
         <label for="email">Email:</label>
         <input type="email" name="email" required>
         <br>
         <label for="destination">Delivery Destination:</label>
         <input type="text" name="destination" required>
         <br>
-        <input type="hidden" name="userId" value="<%= userId %>"> <!-- Add userId if needed -->
-        <button type="submit">Place Order</button>
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" required>
+        <br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <button type="submit">Submit Order</button>
     </form>
 </body>
 </html>

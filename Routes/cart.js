@@ -104,7 +104,7 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 //view cart
 
 router.get('/view_cart',  async(req, res)=>{
-    const userId= '670912936d5a6de48fd73b82'
+    const userId= '672bb1a085c63c7a27657810'
     try {
         let cart = await Cart.findOne({userId})
 
