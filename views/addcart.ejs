@@ -34,11 +34,15 @@
             <input type="number" id="quantity" name="quantity" min="1" max="<%= product.stock %>" value="1">
             <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
             </div>
-
+        <div>
+            <a href="/cart/view_cart">
+                <button class="view-cart-btn">View Cart</button>
+            </a>
+        </div>
             <script>
               
     async function addToCart(productId) {
-        const userId = '670912936d5a6de48fd73b82';
+        const userId = '672bb1a085c63c7a27657810';
         const quantity = document.getElementById('quantity').value;
 
         try {

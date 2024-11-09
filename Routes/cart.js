@@ -43,7 +43,7 @@ router.post('/addcart', async (req, res) => {
         } else {
             // Product is not in the cart, add it as a new item
             cart.items.push({
-                productId: productId,
+                productId: product._Id,
                 quantity: quantity,
                 price: product.price,
                 totalPrice: quantity * product.price
@@ -104,7 +104,7 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 //view cart
 
 router.get('/view_cart',  async(req, res)=>{
-    const userId= '670912936d5a6de48fd73b82'
+    const userId= '672bb1a085c63c7a27657810'
     try {
         let cart = await Cart.findOne({userId})
 
