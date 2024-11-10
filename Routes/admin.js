@@ -1,83 +1,83 @@
 require('dotenv').config();
-
 const express = require('express');
+const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const router = express.Router();
 const Product = require('../model/product.js');
 const isAuthenticated = require('../middleware/authMiddleware.js');
 
-// Ensure the 'uploads' directory exists
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir);
-}
+const router = express.Router();
 
-// Set up multer for image uploads with file type validation
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir); // Folder to store images
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Save files with unique names
-    }
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
-        cb(null, true);
-    } else {
-        cb(new Error("Only image files allowed"), false);
-    }
-};
+// Configure Multer for in-memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage }).array('images', 5);
 
-// Handle file upload errors
-const upload = multer({ storage: storage, fileFilter: fileFilter }).array('images', 5);
+// Middleware for file upload errors
 const uploadMiddleware = (req, res, next) => {
     upload(req, res, (err) => {
-        if (err instanceof multer.MulterError || err) {
+        if (err) {
             return res.status(400).json({ success: false, error: err.message });
         }
         next();
     });
 };
 
-// Serve the uploads folder for accessing images
-router.use('/uploads', express.static(uploadDir));
-
-// CORS middleware to handle requests from different origins
-router.use((req, res, next) => {
-    const allowedOrigins = process.env.CORS_ORIGIN || '*';
-    res.header("Access-Control-Allow-Origin", allowedOrigins);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
-});
-
-// POST new product with image uploads
-router.post('/admin/addingProducts', uploadMiddleware, async (req, res) => {
+//adding new product
+router.post('/addingProducts', uploadMiddleware, async (req, res) => {
     try {
         const { name, description, price, stock, categories } = req.body;
-        const images = req.files.map(file => `/uploads/${file.filename}`);
 
+        // Check if files are uploaded
+        if (!req.files || req.files.length === 0) {
+            throw new Error("No images uploaded");
+        }
+
+        // Function to upload images using a stream
+        const uploadImage = (fileBuffer) => {
+            return new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'products', resource_type: 'image', use_filename: true, unique_filename: true },
+                    (error, result) => {
+                        if (error) reject(error);
+                        else resolve(result.secure_url);
+                    }
+                );
+                stream.end(fileBuffer);
+            });
+        };
+
+        // Upload images to Cloudinary
+        const imageUploads = req.files.map(file => uploadImage(file.buffer));
+        const images = await Promise.all(imageUploads);
+
+        // Create and save the new product
         const newProduct = new Product({
             name,
             description,
             price,
             stock,
             categories,
-            images
+            images,
         });
 
         await newProduct.save();
         console.log('Product added successfully');
-        res.status(201).redirect('/admin/addedProducts'); // Changed status to 201 for creation
+        res.status(201).redirect('/admin/addedProducts');
     } catch (error) {
         console.error("Error adding product:", error.message);
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
+
+
+
 
 // GET all added products
 // GET route to fetch and display all products
@@ -112,7 +112,7 @@ router.get('/addedProducts/:id', async (req, res) => {
 // DELETE a product by ID
 router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) => {
     const productId = req.params.id;
-    
+
     try {
         const product = await Product.findByIdAndDelete(productId);
 
@@ -120,14 +120,15 @@ router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) =
             return res.status(404).json({ success: false, message: "Product not found" });
         }
 
-        // Remove images associated with the product
-        product.images.forEach(imagePath => {
-            const fullPath = path.join(__dirname, '..', imagePath);
-            fs.unlink(fullPath, (err) => {
-                if (err) {
-                    console.error(`Error deleting the image at ${fullPath}`, err);
-                }
-            });
+        // Delete images from Cloudinary
+        product.images.forEach(async (imageUrl) => {
+            const publicId = imageUrl.split('/').slice(-1)[0].split('.')[0];
+            try {
+                await cloudinary.uploader.destroy(`products/${publicId}`);
+                console.log(`Deleted image: ${imageUrl}`);
+            } catch (err) {
+                console.error(`Error deleting image from Cloudinary: ${err.message}`);
+            }
         });
 
         res.status(200).json({ success: true, message: "Product deleted successfully" });

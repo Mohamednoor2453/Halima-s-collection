@@ -90,7 +90,7 @@ router.post('/checkout', async (req, res) => {
         // Send email with order details
         await sendMail(email, orderDetails, destination, phone);
 
-        res.status(200).json({ message: 'Checkout completed successfully', order });
+        res.status(200).render('/')
 
     } catch (error) {
         res.status(500).json({ error: error.message });
