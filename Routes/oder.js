@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const Cart = require('../model/cart.js');
@@ -12,7 +14,7 @@ async function sendMail(userEmail, orderDetails, destination, phone) {
         service: 'gmail',
         auth: {
             user: 'halima14collection@gmail.com',
-            pass: 'sage xjmz scsz tosl' // Ensure this is correct or use environment variables
+            pass: process.env.EMAIL_PASS // Ensure this is correct or use environment variables
         }
     });
 
