@@ -43,7 +43,7 @@ router.post('/addcart', async (req, res) => {
         } else {
             // Product is not in the cart, add it as a new item
             cart.items.push({
-                productId: productId,
+                productId: product._Id,
                 quantity: quantity,
                 price: product.price,
                 totalPrice: quantity * product.price
