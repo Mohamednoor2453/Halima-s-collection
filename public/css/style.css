@@ -967,28 +967,50 @@ nav {
     background-color: #45a049;
 }
 
-.search-sec {
-   margin: auto;
+/* Container styling for centering the search bar within the navbar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
 }
+
+/* Styling for the search bar */
 .search-bar {
     display: flex;
     align-items: center;
-    margin-left: 20px;
-    margin-top: 60px;
-    position: fixed;
-}
-
-.search-bar input[type="text"] {
+    border: 2px solid #ddd;
+    border-radius: 20px;
     padding: 5px 10px;
-    font-size: 14px;
-    align-items: flex-end;
+    background-color: #f9f9f9;
 }
 
-.search-bar button {
-    background: none;
+/* Search input field styling */
+.search-bar input[type="text"] {
     border: none;
+    outline: none;
+    padding: 8px;
+    width: 200px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: transparent;
+}
+
+/* Search button (icon) styling */
+.search-bar button {
+    border: none;
+    background: none;
     cursor: pointer;
     color: #333;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.search-bar button:hover {
+    color: #007bff; /* Optional: Change color on hover */
+}
+
+.welcome-message {
+    font-size: x-large;
 }
 
 /* Footer Styling */
