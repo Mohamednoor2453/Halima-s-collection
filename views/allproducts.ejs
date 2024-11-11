@@ -1,3 +1,4 @@
+<!-- allproducts.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,22 +8,12 @@
     <link rel="stylesheet" href="/css/style.css">
     <script>
         function toggleSidebar() {
-               const sidebar = document.querySelector(".sidebar");
-               sidebar.classList.toggle("active");
-           }
-   
-           // Function to toggle dropdown visibility
-           function toggleDropdown(id) {
-               const dropdown = document.getElementById(id);
-               const isVisible = dropdown.style.display === "block";
-               dropdown.style.display = isVisible ? "none" : "block";
-           }
-   </script>
+            const sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
 </head>
 <body>
-    
-
-           
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
 
     <h1>Products</h1>
@@ -31,16 +22,14 @@
             <% products.forEach(product => { %>
                 <div class="product-item">
                     <div class="product-images">
-                        <% product.images.forEach(image => { %>
-                            
-                            <img src="<%= image %>" alt="Product Image">
-                            
+                        <!-- Display product images from Cloudinary URLs -->
+                        <% product.images.forEach(imageUrl => { %>
+                            <img src="<%= imageUrl %>" alt="Product Image" style="max-width: 200px; max-height: 200px;">
                         <% }) %>
                     </div>
-                      <a href="/admin/addedProducts/<%= product._id %>">
+                    <a href="/admin/addedProducts/<%= product._id %>">
                         <h3><%= product.name %></h3>
                     </a>
-                    
                 </div>
             <% }) %>
         <% } else { %>

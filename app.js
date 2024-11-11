@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 
 //seting ejs view engine
 app.set('view engine','ejs')
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Use routes
 app.use('/', routesRouter);
 app.use('/admin', adminRouter);
