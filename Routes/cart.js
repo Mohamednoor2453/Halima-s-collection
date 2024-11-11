@@ -43,7 +43,7 @@ router.post('/addcart', async (req, res) => {
         } else {
             // Product is not in the cart, add it as a new item
             cart.items.push({
-                productId: product._Id,
+                productId: productId,
                 quantity: quantity,
                 price: product.price,
                 totalPrice: quantity * product.price
@@ -106,7 +106,7 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 router.get('/view_cart',  async(req, res)=>{
     const userId= '672bb1a085c63c7a27657810'
     try {
-        let cart = await Cart.findOne({userId})
+        let cart = await Cart.findOne({ userId }).populate('items.productId');
 
         if(!cart){
             return res.status(400).json({message: 'cart has not been created'})

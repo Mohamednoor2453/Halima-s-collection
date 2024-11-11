@@ -56,7 +56,7 @@ router.post('/register', async(req, res)=>{
           })
 
           await newUser.save()//saving user to db
-          res.status(200).json({message: 'Registration was successfully done'})
+          res.status(200).redirect('/login')
 
     } catch (error) {
         res.status(500).json({error:  error.message})

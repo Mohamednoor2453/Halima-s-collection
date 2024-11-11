@@ -3,55 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Cart</title>
+    <title>Order Form</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
     <div>
         <nav>
             <div class="site-title">
                 <a href="/"><h1>Halima Collection</h1></a>
                 <p class="font-semibold">Your One Stop Shop</p>
-            </div>
+              </div>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/products/womensproducts">Women</a></li>
-                <li><a href="/products/mensproducts">Men</a></li>
-                <li><a href="/products/sneakers">Sneakers</a></li>
-                <li><a href="/products/accessories">Accessories</a></li>
+             <li><a href="/">Home></a></li>
+             <li><a href="/products/womensproducts">Women></a></li>
+             <li><a href="/products/mensproducts">Men></a></li>
+             <li><a href="/products/sneakers">Sneakers></a></li>
+             <li><a href="/products/accessories">Accessories></a></li>
             </ul>
-        </nav>
+            <div class="register">
+                <a href="/login">LogIn</a>
+                <a href="/register">Sign Up</a>
+                <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
+                
             </div>
-
-    <div class="view-cart">
-         <h1>Your Shopping Cart</h1>
-
-         <% if (cart && cart.items.length > 0) { %>
-            <ul>
-                <% cart.items.forEach(item => { %>
-                    <li>
-                        <img src="<%= item.productId.images[0] %>" alt="<%= item.productId.name %>">
-                        <h3>Product: <%= item.productId.name %></h3>
-                        <p>Quantity: <%= item.quantity %></p>
-                        <p>Price: Ksh <%= item.productId.price %></p>
-                        <p>Total Price: Ksh <%= item.totalPrice %></p>
-                    </li>
-                <% }) %>
-            </ul>
-            <p>Total Items: <%= cart.totalItem %></p>
-            <p>Total Cart Price: Ksh <%= cart.cartTotalPrice %></p>
-            <form action="/oderForm" method="GET">
-                <input type="hidden" name="userId" value="<%= cart.userId %>">
-                <button type="submit">Order Now</button>
-            </form>
-        <% } else { %>
-            <p>Your cart is empty.</p>
-        <% } %>
-        
-        
+             </nav>
     </div>
-   
+
+    <div class="order-form-container">
+    <div class="order-form">
+        <h1>Order Form</h1>
+        <form action="/oder/checkout" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <br>
+        <label for="destination">Delivery Destination:</label>
+        <input type="text" name="destination" required>
+        <br>
+        <label for="phone">Phone Number:</label>
+        <input type="text" name="phone" required>
+        <br>
+        <input type="hidden" name="userId" value="<%= userId %>">
+        <button type="submit">Submit Order</button>
+    </form>
+    </div>
+
+    </div>
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section about">
@@ -77,7 +73,7 @@
         <div class="footer-bottom">
             &copy; 2024 Halima Collection. All Rights Reserved.
         </div>
-    </footer>
- 
+    
+    
 </body>
 </html>
