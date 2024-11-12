@@ -22,18 +22,20 @@
              <li><a href="/products/accessories">Accessories></a></li>
             </ul>
             <div class="register">
-                <a href="">LogIn</a>
-                <a href="">Sign Up</a>
+                <a href="/login">LogIn</a>
+                <a href="/register">Sign Up</a>
                 <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
 
+            </div>
+            <div>
+                <form action="/products/search" method="GET" class="search-bar">
+                    <input type="text" name="query" placeholder="Search products...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
              </nav>
     </div>
 
-    <form action="/search" method="GET" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button type="submit"><i class="fas fa-search"></i></button>
-    </form>
     
     <div class="sneaker-section">
         <h2>Sneakers</h2>

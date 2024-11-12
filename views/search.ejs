@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima's Collection</title>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css"> <!-- Ensure correct path to style.css -->
 </head>
 <body>
     <div>
@@ -19,7 +19,7 @@
                 <li><a href="/products/womensproducts">Women</a></li>
                 <li><a href="/products/mensproducts">Men</a></li>
                 <li><a href="/products/sneakers">Sneakers</a></li>
-                <li><a href="/accessories">Accessories</a></li>
+                <li><a href="/products/accessories">Accessories</a></li>
             </ul>
             <div class="register">
                 <a href="/login">Log In</a>
@@ -28,37 +28,36 @@
             </div>
             <div>
                 <form action="/products/search" method="GET" class="search-bar">
-                    <input type="text" name="query" placeholder="Search products...">
+                    <input type="text" name="name" placeholder="Search products...">
                     <button type="submit"><i class="fas fa-search"></i></button>
-                    
+                    <button type="button" class="clear-search-button" onclick="clearSearch()">Clear Search</button>
+
                 </form>
             </div>
         </nav>
     </div>
-      
-    
-    <div class="accessory-category-section">
-        <h2 class="accessory-section-title">Accessories</h2>
-        <div class="accessory-product-container">
-            <% accessories.forEach(product => { %>
-                <div class="accessory-product-item">
-                    
-                    <% product.images.forEach(image => { %>
-                        <img src="<%= image %>" alt="<%= product.name %>" class="accessory-product-image">
-                    <% }) %>
-                    <a href="/products/<%= product.category || 'accessories' %>/<%= product._id %>">
-                        <h3 class="product-name"><%= product.name %></h3>
-                    </a>
-                    
-                    
-                    <p class="accessory-product-price">Ksh <%= product.price %></p>
-                    
-                </div>
-            <% }) %>
-        </div>
+
+    <div class="search-results">
+        <h2>Search Results</h2>
+
+        <% if (products.length > 0) { %>
+            <div class="products-container">
+                <% products.forEach(product => { %>
+                    <div class="product-item">
+                        <img src="<%= product.images[0] %>" alt="<%= product.name %>" class="product-image">
+                        <a href="/products/<%= product.categories[0] %>/<%= product._id %>">
+                            <h3><%= product.name %></h3>
+                        </a>
+                        <p class="product-price">Ksh <%= product.price %></p>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No products found matching your search criteria.</p>
+        <% } %>
     </div>
 
-    <footer class="footer">
+    <footer>
         <div class="footer-content">
             <div class="footer-section about">
                 <h3>About Us</h3>
@@ -68,20 +67,32 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/mensproducts">Men</a></li>
-                    <li><a href="/womensproducts">Women</a></li>
+                    <li><a href="/products/mensproducts">Men</a></li>
+                    <li><a href="/products/womensproducts">Women</a></li>
                     <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-section social">
                 <h3>Follow Us</h3>
-                
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                
             </div>
         </div>
         <div class="footer-bottom">
             &copy; 2024 Halima Collection. All Rights Reserved.
         </div>
     </footer>
+
+    <script>
+
+        function clearSearch() {
+        // Clear the search input field
+        document.querySelector('.search-input').value = '';
+    
+        // Optionally, redirect to the same page to reset the search results
+        window.location.href = '/search';  // Adjust this to your search route
+    }
+    </script>
+    
+</body>
+</html>

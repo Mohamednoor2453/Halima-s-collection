@@ -3,43 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima-s-collection | Login</title>
+    <title>Halima's Collection | Login</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f5f6e7; /* Optional: gives a slight background contrast */
-}
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f5f6e7; /* Optional: gives a slight background contrast */
+        }
     </style>
 </head>
-<body>
-    <div class="welcome-message">
-            <h1>Welcome Back!! <br>
-                Continue Your Shopping Journey</h1>
-        </div>
+<body>  
+    <div class="log">
+<div class="welcome-message ">
+        <h1>Welcome Back!! <br> Continue Your Shopping Journey</h1>
+    </div>
     <div class="login-container">
-        
         <h2>Login</h2>
-        <form action="/auth/login" method="POST">
+        <form id="loginForm" action="/auth/login" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" >
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" >
             </div>
             <button type="submit" class="login-btn">Login</button>
-        </form>            
+        </form>
         <a href="/forgot-password">Forgot Password?</a>
 
         <div class="form-footer">
             <p>Don't have an account? <a href="/register">Sign up</a></p>
         </div>
     </div>
+
+    </div>
+    
+
+    <script>
+        // Listen for form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();  // Prevent the default form submission
+
+            // Simulate a login attempt (you can replace this with your actual form validation logic)
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === "" || password === "") {
+                // If email or password is missing, show an error SweetAlert
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please fill in both fields.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+            } else {
+                // Simulate successful login (replace with actual login logic)
+                // Here, you can make an AJAX call to the server, and based on the response, trigger a success or error
+                Swal.fire({
+                    title: 'Logged In!',
+                    text: 'You are successfully logged in.',
+                    icon: 'success',
+                    confirmButtonText: 'Proceed to Dashboard'
+                }).then(() => {
+                    window.location.href = "/dashboard"; // Redirect to dashboard after successful login
+                });
+            }
+        });
+    </script>
 </body>
 </html>

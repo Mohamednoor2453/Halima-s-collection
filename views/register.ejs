@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima-s-collection | Register</title>
+    <title>Halima's Collection | Register</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
-           html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f5f6e7; /* Optional: gives a slight background contrast */
-}
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f5f6e7; /* Optional: gives a slight background contrast */
+        }
     </style>
 </head>
 
@@ -23,22 +25,18 @@
     </div>
     <div class="register-container">
         <h2>Register</h2>
-        <form action="/auth/register" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
+        <form id="registerForm" action="/auth/register" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password">
             </div>
             <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirmPassword" required>
+                <input type="password" id="confirm-password" name="confirmPassword">
             </div>
             <button type="submit" class="register-btn">Register</button>
         </form>
@@ -46,5 +44,44 @@
             <p>Already have an account? <a href="/login">Login</a></p>
         </div>
     </div>
+
+    <script>
+        // Listen for form submission
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();  // Prevent the default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Check if fields are empty
+            if (email === "" || password === "" || confirmPassword === "") {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Please fill in all fields.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+            } else if (password !== confirmPassword) {
+                // Check if passwords match
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Passwords do not match.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+            } else {
+                // Simulate successful registration (replace with actual registration logic)
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your account has been created successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'Proceed to Login'
+                }).then(() => {
+                    window.location.href = "/login"; // Redirect to login page after successful registration
+                });
+            }
+        });
+    </script>
 </body>
 </html>

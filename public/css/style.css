@@ -434,6 +434,23 @@ nav {
     font-weight: bold;
 }
 
+
+
+
+
+@media (max-width: 1024px) {
+    .product-page, .popular-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav ul {
+        gap: 10px;
+    }
+}
+
+/* Mobile view */
+
+
 /* sneaker styling*/
 .sneaker-section {
     display: flex;
@@ -699,6 +716,7 @@ nav {
     border-radius: 12px;
     
   }
+
   
   .view-cart h1 {
     text-align: center;
@@ -756,6 +774,25 @@ nav {
     font-size: 18px;
     color: #333;
   }
+
+  .remove-btn {
+    padding: 8px 12px;
+    border: 2px solid ;
+    background-color: #3686fd;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+
+
+
 
 .login-container {
     background-color: #ffffff;
@@ -815,6 +852,7 @@ nav {
     background-color: #0056b3;
 }
 
+
 .form-footer {
     margin-top: 1rem;
     text-align: center;
@@ -829,6 +867,8 @@ nav {
 .form-footer a:hover {
     text-decoration: underline;
 }
+
+
 
 .register-container {
     background-color: #ffffff;
@@ -902,6 +942,41 @@ nav {
     text-decoration: underline;
 }
 
+@media (max-width: 768px) {
+    .login-container {
+        padding: 2.5rem;
+    }
+
+    .login-container h2 {
+        font-size: 1.75rem;
+    }
+
+    .login-btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    .register-container {
+        padding: 2.5rem;
+    }
+    .register-container h2 {
+        font-size: 1.75rem;
+
+    }
+    .register-btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .login-container h2 {
+        font-size: 2rem;
+    }
+
+    .form-group input {
+        font-size: 1.1rem;
+    }
+}
 .order-form-container {
     display: flex;
     justify-content: center;
@@ -967,6 +1042,7 @@ nav {
     background-color: #45a049;
 }
 
+
 /* Container styling for centering the search bar within the navbar */
 .search-container {
     display: flex;
@@ -1009,9 +1085,93 @@ nav {
     color: #007bff; /* Optional: Change color on hover */
 }
 
+/* Search Results Section */
+.search-results {
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 80px;
+}
+
+.search-results-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Products Container */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Individual Product Item */
+.product-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Product Name */
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.product-name:hover {
+    color: #007BFF;
+}
+
+/* Product Price */
+.product-price {
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+}
+
+/* Product Link */
+.product-link {
+    text-decoration: none;
+}
+
+/* No Results Message */
+.no-products-message {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+    margin-top: 30px;
+}
+
 .welcome-message {
     font-size: x-large;
 }
+
+
 
 /* Footer Styling */
 .footer {

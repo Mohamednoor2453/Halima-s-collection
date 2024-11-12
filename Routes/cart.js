@@ -66,7 +66,7 @@ router.post('/addcart', async (req, res) => {
 
 //Removing specific Item from cart
 
-router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
+router.delete('/removefrom_cart', async (req, res) => {
     const { userId, productId } = req.body; // Extracting userId and productId from the request body
 
     try {
@@ -104,7 +104,12 @@ router.delete('/removefrom_cart', isAuthenticated, async (req, res) => {
 //view cart
 
 router.get('/view_cart',  async(req, res)=>{
-    const userId= '672bb1a085c63c7a27657810'
+    const userId = '672bb1a085c63c7a27657810';
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User not authenticated' });
+    }
+
     try {
         let cart = await Cart.findOne({ userId }).populate('items.productId');
 
@@ -123,8 +128,8 @@ router.get('/view_cart',  async(req, res)=>{
 
 //clearing cart
 
-router.delete('/clear_cart', isAuthenticated, async(req, res)=>{
-    const {userId}= req.query
+router.delete('/clear_cart',  async(req, res)=>{
+    const userId= '672bb1a085c63c7a27657810'
 
     try {
         let cart = await Cart.findOne({userId})

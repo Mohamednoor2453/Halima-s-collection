@@ -30,14 +30,17 @@
                 <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
 
             </div>
+            <div>
+                <form action="/products/search" method="GET" class="search-bar">
+                    <input type="text" name="name" placeholder="Search products...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        
         </nav>
     </div>
     
-    <form action="/search" method="GET" class="search-bar">
-        <input type="text" name="query" placeholder="Search products...">
-        <button type="submit"><i class="fas fa-search"></i></button>
-    </form>
-
+    
 
     <!-- Men T-shirts Section -->
     <div class="men-section">

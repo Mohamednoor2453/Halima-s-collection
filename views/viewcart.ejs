@@ -24,31 +24,41 @@
         </nav>
             </div>
 
+            
+
     <div class="view-cart">
          <h1>Your Shopping Cart</h1>
 
          <% if (cart && cart.items.length > 0) { %>
             <ul>
                 <% cart.items.forEach(item => { %>
-                    <li>
+                    <li class="item-details">
                         <img src="<%= item.productId.images[0] %>" alt="<%= item.productId.name %>">
                         <h3>Product: <%= item.productId.name %></h3>
                         <p>Quantity: <%= item.quantity %></p>
                         <p>Price: Ksh <%= item.productId.price %></p>
                         <p>Total Price: Ksh <%= item.totalPrice %></p>
                     </li>
+                    
+                    <button onclick="removeFromCart('<%= cart.userId %>', '<%= item.productId._id %>')" class="remove-btn">Remove</button>
+                    
                 <% }) %>
             </ul>
             <p>Total Items: <%= cart.totalItem %></p>
             <p>Total Cart Price: Ksh <%= cart.cartTotalPrice %></p>
+
+            <button onclick="clearCart('<%= cart.userId %>')" class="remove-btn">Clear Cart</button>
+
             <form action="/oderForm" method="GET">
                 <input type="hidden" name="userId" value="<%= cart.userId %>">
                 <button type="submit">Order Now</button>
             </form>
         <% } else { %>
             <p>Your cart is empty.</p>
-
-    </div>
+        <% } %>
+            </div>
+    
+    
    
     <footer class="footer">
         <div class="footer-content">
@@ -77,5 +87,61 @@
         </div>
     </footer>
  
+
+    <script>
+        async function removeFromCart(userId, productId) {
+    try {
+        const response = await fetch('/cart/removefrom_cart', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId, productId })
+        });
+
+        // Try parsing the response as JSON
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert(data.message || 'Error removing item from cart');
+        }
+    } catch (error) {
+        // Handle cases where the response isn't JSON or there’s a network error
+        alert('An error occurred: ' + error.message);
+        console.error('Error details:', error);
+    }
+}
+
+
+async function clearCart(userId) {
+    try {
+        const response = await fetch('/cart/clear_cart', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message);
+            location.reload();  // Reload the page to show an empty cart
+        } else {
+            alert(data.message || 'Error clearing cart');
+        }
+    } catch (error) {
+        alert('An error occurred: ' + error.message);
+        console.error('Error details:', error);
+    }
+}
+
+
+    </script>
+
 </body>
 </html>

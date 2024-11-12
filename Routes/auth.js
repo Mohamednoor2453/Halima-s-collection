@@ -92,7 +92,7 @@ router.post('/login', async(req, res, done)=>{
             return res.status(200).json({message:'Login successfully',  redirectUrl: '/admin' })
         }
         else {
-            return res.status(200).json({ message: 'Login successfully', redirectUrl: '/product' });
+            return res.status(200).redirect('/');
           }
     } catch (error) {
         res.status(500).json({error: error.message})
