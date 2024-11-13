@@ -434,6 +434,23 @@ nav {
     font-weight: bold;
 }
 
+
+
+
+
+@media (max-width: 1024px) {
+    .product-page, .popular-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav ul {
+        gap: 10px;
+    }
+}
+
+/* Mobile view */
+
+
 /* sneaker styling*/
 .sneaker-section {
     display: flex;
@@ -674,17 +691,108 @@ nav {
     align-items: center;
 }
 
-.view-cart {
-    background-color: #f8f5f6e7;
-    border: 1px solid #f7f4f5;
+.view-cart-btn {
+    padding: 10px;
+    margin: 20px;
+    border: 2px solid;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    width: 200px;
-    align-items: center;
-    text-align: center;
-    margin-top: 60px;
+    background-color: #111111;
+    color: white;
+    font-weight: bold;
+
 }
+.view-cart-btn:hover {
+    cursor: pointer;
+
+}
+
+.view-cart {
+    background-color: white;
+    max-width: 1200px;
+    margin-top: 80px;
+    margin: 40px auto;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    
+  }
+
+  
+  .view-cart h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+  
+  .view-cart ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .view-cart li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .view-cart li img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .view-cart li h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .view-cart li p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .view-cart p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .view-cart .total {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .view-cart .total p {
+    font-size: 18px;
+    color: #333;
+  }
+
+  .remove-btn {
+    padding: 8px 12px;
+    border: 2px solid ;
+    background-color: #3686fd;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+
+
+
 
 .login-container {
     background-color: #ffffff;
@@ -744,6 +852,7 @@ nav {
     background-color: #0056b3;
 }
 
+
 .form-footer {
     margin-top: 1rem;
     text-align: center;
@@ -758,6 +867,8 @@ nav {
 .form-footer a:hover {
     text-decoration: underline;
 }
+
+
 
 .register-container {
     background-color: #ffffff;
@@ -830,6 +941,237 @@ nav {
 .form-footer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 2.5rem;
+    }
+
+    .login-container h2 {
+        font-size: 1.75rem;
+    }
+
+    .login-btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    .register-container {
+        padding: 2.5rem;
+    }
+    .register-container h2 {
+        font-size: 1.75rem;
+
+    }
+    .register-btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .login-container h2 {
+        font-size: 2rem;
+    }
+
+    .form-group input {
+        font-size: 1.1rem;
+    }
+}
+.order-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 100px; /* Space for navbar */
+    box-sizing: border-box;
+}
+
+.order-form {
+   
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Form Heading */
+.order-form h1 {
+    color: #333333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Labels */
+.order-form label {
+    display: block;
+    font-weight: bold;
+    color: #555555;
+    margin: 0.5rem 0 0.3rem;
+    text-align: left;
+}
+
+/* Form Inputs */
+.order-form input[type="email"],
+.order-form input[type="text"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+/* Submit Button */
+.order-form button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-form button:hover {
+    background-color: #45a049;
+}
+
+
+/* Container styling for centering the search bar within the navbar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* Styling for the search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #f9f9f9;
+}
+
+/* Search input field styling */
+.search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 200px;
+    font-size: 14px;
+    border-radius: 20px;
+    background: transparent;
+}
+
+/* Search button (icon) styling */
+.search-bar button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+.search-bar button:hover {
+    color: #007bff; /* Optional: Change color on hover */
+}
+
+/* Search Results Section */
+.search-results {
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 80px;
+}
+
+.search-results-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Products Container */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Individual Product Item */
+.product-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+/* Product Name */
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.product-name:hover {
+    color: #007BFF;
+}
+
+/* Product Price */
+.product-price {
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+}
+
+/* Product Link */
+.product-link {
+    text-decoration: none;
+}
+
+/* No Results Message */
+.no-products-message {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.welcome-message {
+    font-size: x-large;
+}
+
+
 
 /* Footer Styling */
 .footer {

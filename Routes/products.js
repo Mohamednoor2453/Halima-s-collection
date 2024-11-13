@@ -17,7 +17,7 @@ router.get('/mensproducts', async (req, res) => {
         const shoes = await getProductsByCategory('men-shoes');
         const suits = await getProductsByCategory('suits');
 
-        res.status(200).render('mensproducts', { title: 'Men’s Products', tshirts, trousers, shoes, suits });
+        res.status(200).render('mensproducts', { title: 'Mens Products', tshirts, trousers, shoes, suits });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -79,7 +79,6 @@ router.get('/:category/:id', async (req, res) => {
 // Search products by category and other filters
 router.get('/search', async (req, res) => {
     try {
-        // Get query parameters
         const { name, category, minPrice, maxPrice } = req.query;
         const query = {};
 
@@ -90,7 +89,12 @@ router.get('/search', async (req, res) => {
         if (maxPrice) query.price = { $lte: Number(maxPrice) };
 
         const products = await Product.find(query).sort({ _id: -1 }).limit(6);
-        res.status(200).render('home', { products });
+
+        // Pass the products to the 'searchResults' template
+        res.status(200).render('search', { 
+            title: 'Search Results', 
+            products 
+        });
     } catch (err) {
         res.status(500).json({ message: 'Error occurred while searching for products', error: err.message });
     }

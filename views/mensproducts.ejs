@@ -22,7 +22,7 @@
                 <li><a href="/products/womensproducts">Women</a></li>
                 <li><a href="/products/mensproducts">Men</a></li>
                 <li><a href="/products/sneakers">Sneakers</a></li>
-                <li><a href="/accessories">Accessories</a></li>
+                <li><a href="/products/accessories">Accessories</a></li>
             </ul>
             <div class="register">
                 <a href="/login">Log In</a>
@@ -30,8 +30,17 @@
                 <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
 
             </div>
+            <div>
+                <form action="/products/search" method="GET" class="search-bar">
+                    <input type="text" name="name" placeholder="Search products...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+        
         </nav>
     </div>
+    
+    
 
     <!-- Men T-shirts Section -->
     <div class="men-section">

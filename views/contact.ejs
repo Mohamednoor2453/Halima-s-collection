@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Halima's Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css"> <!-- Include your CSS file -->
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9e0e4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            width: 100%;
+        }
+
+        nav, footer {
+            width: 100%;
+            background-color: #f7f4f5;
+            color: white;
+            padding: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-container {
+            background-color: #fff;
+            max-width: 600px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem auto;
+        }
+
+        .contact-header h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icons {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            margin-top: 1.5rem;
+        }
+
+        .contact-info div {
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-info i {
+            color: #007bff;
+            margin-right: 0.5rem;
+        }
+
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            color: #555;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #007bff;
+        }
+
+        .contact-form {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+        }
+
+        .footer-section h3 {
+            color: #f8f5f6;
+        }
+
+        .footer-bottom {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Halima Collection</h1></a>
+            <p class="font-semibold">Your One Stop Shop</p>
+        </div>
+        <ul class="sm:flex-col">
+            <li><a href="/">Home</a></li>
+            <li><a href="/products/womensproducts">Women</a></li>
+            <li><a href="/products/mensproducts">Men</a></li>
+            <li><a href="/products/sneakers">Sneakers</a></li>
+            <li><a href="/products/accessories">Accessories</a></li>
+        </ul>
+        <div class="register">
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+        <div>
+            <form action="/products/search" method="GET" class="search-bar">
+                <input type="text" name="query" placeholder="Search products...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="contact-container">
+            <div class="contact-header">
+                <i class="fas fa-envelope contact-icons"></i>
+                <h2>Contact Us</h2>
+                <p>We'd love to hear from you! Get in touch with us via the form below or connect with us on social media.</p>
+            </div>
+
+            <div class="contact-info">
+                <div><i class="fas fa-phone-alt"></i> 0714 656 381</div>
+                <div><i class="fas fa-map-marker-alt"></i> Maasai Mara, Narok</div>
+                <div><i class="fas fa-envelope"></i> @halima14collection.com</div>
+            </div>
+
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+
+            <form action="/submit-contact" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>Your go-to source for fashion and style. Discover our curated collection.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/mensproducts">Men</a></li>
+                    <li><a href="/womensproducts">Women</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Halima Collection. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>

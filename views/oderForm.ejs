@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Form</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Order Form</h1>
-    <form action="/oder/checkout" method="POST">
+    <div>
+        <nav>
+            <div class="site-title">
+                <a href="/"><h1>Halima Collection</h1></a>
+                <p class="font-semibold">Your One Stop Shop</p>
+              </div>
+            <ul>
+             <li><a href="/">Home></a></li>
+             <li><a href="/products/womensproducts">Women></a></li>
+             <li><a href="/products/mensproducts">Men></a></li>
+             <li><a href="/products/sneakers">Sneakers></a></li>
+             <li><a href="/products/accessories">Accessories></a></li>
+            </ul>
+            <div class="register">
+                <a href="/login">LogIn</a>
+                <a href="/register">Sign Up</a>
+                <a href="/cart/view_cart"><i class="fas fa-shopping-cart"></i></a>
+                
+            </div>
+             </nav>
+    </div>
+
+    <div class="order-form-container">
+    <div class="order-form">
+        <h1>Order Form</h1>
+        <form action="/oder/checkout" method="POST">
         <label for="email">Email:</label>
         <input type="email" name="email" required>
         <br>
@@ -20,5 +45,35 @@
         <input type="hidden" name="userId" value="<%= userId %>">
         <button type="submit">Submit Order</button>
     </form>
+    </div>
+
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>Your go-to source for fashion and style. Discover our curated collection.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/mensproducts">Men</a></li>
+                    <li><a href="/womensproducts">Women</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 Halima Collection. All Rights Reserved.
+        </div>
+    
+    
 </body>
 </html>

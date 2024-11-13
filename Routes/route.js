@@ -49,6 +49,11 @@ router.get('/oderForm', (req, res) => {
     res.render('oderForm.ejs', { userId });
 });
 
+router.get('/contact', (req, res) => {
+    const userId = req.query.userId;
+    res.render('contact', { userId });
+});
+
 
 
 
