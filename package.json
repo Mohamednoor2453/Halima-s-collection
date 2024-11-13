@@ -45,6 +45,7 @@
     "cookie": "^0.7.1",
     "cookie-signature": "^1.0.6",
     "core-util-is": "^1.0.2",
+    "crypto": "^1.0.1",
     "dashdash": "^1.14.1",
     "debug": "^2.6.9",
     "define-data-property": "^1.1.4",

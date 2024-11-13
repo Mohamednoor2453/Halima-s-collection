@@ -13,13 +13,13 @@ async function sendMail(userEmail, orderDetails, destination, phone) {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'halima14collection@gmail.com',
-            pass: process.env.EMAIL_PASS // Ensure this is correct or use environment variables
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS 
         }
     });
 
     let mailOptions = {
-        from: 'halima14collection@gmail.com',
+        from: process.env.EMAIL_USER,
         to: userEmail,
         subject: 'Your Order Details',
         text: `Your order has been placed successfully! \n\nOrder Details: \n${orderDetails}\n\nDelivery Destination: ${destination}\nPhone: ${phone}`
