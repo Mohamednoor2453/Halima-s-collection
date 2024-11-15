@@ -21,51 +21,50 @@
                 <li><a href="/products/accessories">Accessories</a></li>
             </ul>
         </nav>
-            </div>
-            <div class="addcart-product-item">
-                    
-                <% product.images.forEach(image => { %>
-                    <img src="<%= image %>" alt="<%= product.name %>" class="accessory-product-image">
-                <% }) %>
-            <h3 class="accessory-product-name"><%= product.name %></h3>
-            <p class="accessory-product-price">Ksh <%= product.price %></p>
-            <p class="accessory-product-price"> <%= product.description %></p>
-            <p class="accessory-product-price"> <%= product.stock %> available</p>
-            <input type="number" id="quantity" name="quantity" min="1" max="<%= product.stock %>" value="1">
-            <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
-            </div>
-            <div>
-                <a href="/cart/view_cart">
-                    <button class="view-cart-btn">View Cart</button>
-                </a>
-            </div>
-            <script>
-              
-    async function addToCart(productId) {
-        const userId = '672bb1a085c63c7a27657810';
-        const quantity = document.getElementById('quantity').value;
+    </div>
+    <div class="addcart-product-item">
+        <% product.images.forEach(image => { %>
+            <img src="<%= image %>" alt="<%= product.name %>" class="accessory-product-image">
+        <% }) %>
+        <h3 class="accessory-product-name"><%= product.name %></h3>
+        <p class="accessory-product-price">Ksh <%= product.price %></p>
+        <p class="accessory-product-description"><%= product.description %></p>
+        <p class="accessory-product-stock"><%= product.stock %> available</p>
+        <input type="number" id="quantity" name="quantity" min="1" max="<%= product.stock %>" value="1">
+        <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+    </div>
+    <div>
+        <a href="/cart/view_cart">
+            <button class="view-cart-btn">View Cart</button>
+        </a>
+    </div>
 
-        try {
-            const response = await fetch('/cart/addcart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId, productId, quantity: Number(quantity) })
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                alert("Product added to cart successfully!");
-            } else {
-                alert("Error: " + data.message);
-            }
-        } catch (error) {
-            console.error("Error adding product to cart:", error);
-        }
-    }
-</script>
-
+    <script>
+        async function addToCart(productId) {
             
+
+            const quantity = document.getElementById('quantity').value;
+
+            try {
+                const response = await fetch('/cart/addcart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({productId, quantity: Number(quantity) }),
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert("Product added to cart successfully!");
+                } else {
+                    alert("Error: " + data.message);
+                }
+            } catch (error) {
+                console.error("Error adding product to cart:", error);
+            }
+        }
+    </script>
 </body>
 </html>

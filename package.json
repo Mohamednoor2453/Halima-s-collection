@@ -39,6 +39,7 @@
     "combined-stream": "^1.0.8",
     "concat-map": "^0.0.1",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "console-control-strings": "^1.1.0",
     "content-disposition": "^0.5.4",
     "content-type": "^1.0.5",

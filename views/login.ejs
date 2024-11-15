@@ -45,36 +45,6 @@
     </div>
     
 
-    <script>
-        // Listen for form submission
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();  // Prevent the default form submission
-
-            // Simulate a login attempt (you can replace this with your actual form validation logic)
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (email === "" || password === "") {
-                // If email or password is missing, show an error SweetAlert
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Please fill in both fields.',
-                    icon: 'error',
-                    confirmButtonText: 'Try Again'
-                });
-            } else {
-                // Simulate successful login (replace with actual login logic)
-                // Here, you can make an AJAX call to the server, and based on the response, trigger a success or error
-                Swal.fire({
-                    title: 'Logged In!',
-                    text: 'You are successfully logged in.',
-                    icon: 'success',
-                    confirmButtonText: 'Proceed to Dashboard'
-                }).then(() => {
-                    window.location.href = "/dashboard"; // Redirect to dashboard after successful login
-                });
-            }
-        });
-    </script>
+    
 </body>
 </html>

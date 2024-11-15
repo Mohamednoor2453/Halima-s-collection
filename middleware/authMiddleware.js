@@ -1,12 +1,11 @@
 // middleware/authMiddleware.js
-function isAuthenticated(req, res, next) {
-    if (req.session && req.session.user) {
-        // User is authenticated, proceed to the next middleware or route handler
+const isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.user && req.session.user.userId) {
+        console.log("User session found:", req.session.user);
         return next();
-    } else {
-        // User is not authenticated
-        return res.status(401).json({ message: 'Unauthorized access. Please log in first.', redirectUrl: '/auth/Login' });
     }
-}
+    console.log("User session not found. Redirecting...");
+    res.status(401).json({ message: 'You must be logged in to access this resource' });
+};
 
 module.exports = isAuthenticated;

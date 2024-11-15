@@ -29,7 +29,7 @@ const uploadMiddleware = (req, res, next) => {
 };
 
 //adding new product
-router.post('/addingProducts', uploadMiddleware, async (req, res) => {
+router.post('/addingProducts', isAuthenticated, uploadMiddleware, async (req, res) => {
     try {
         const { name, description, price, stock, categories } = req.body;
 
@@ -92,7 +92,7 @@ router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
 });
 
  // Add this route in admin.js
-router.get('/addedProducts/:id', async (req, res) => {
+router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
@@ -139,7 +139,7 @@ router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) =
 
 
 // Route to get product details for updating
-router.get('/updateProduct/:id', async (req, res) => {
+router.get('/updateProduct/:id', isAuthenticated, async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);

@@ -5,6 +5,7 @@ const {User} = require('../model/user.js')
 const bcrypt = require('bcrypt')
 const flash = require('connect-flash')
 const session = require('express-session')
+const MongoStore = require('connect-mongo');
 
 const router = express.Router()
 
@@ -16,15 +17,7 @@ const regExEmail = /^[a-zA-Z][a-zA-Z0-9._-]*@[a-zA-Z]+\.[a-zA-Z]+$/;
 const regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 
-//Setting up session midleware
-router.use(
-    session({
-      secret: process.env.SESSION_SECRET_KEY,
-      resave: false,
-      saveUninitialized: false,
-      cookie: { secure: false } 
-    })
-  );
+
 
   const adminMail = process.env.ADMIN_EMAIL
 
@@ -55,7 +48,9 @@ router.post('/register', async(req, res)=>{
             password: hashedPassword
           })
 
-          await newUser.save()//saving user to db
+          await newUser.save()
+          console.log('new user saved to db')
+          //saving user to db
           res.status(200).redirect('/login')
 
     } catch (error) {
@@ -64,40 +59,39 @@ router.post('/register', async(req, res)=>{
 
 })
 
-router.post('/login', async(req, res, done)=>{
-    const {email, password} = req.body
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body
+
 
     try {
-        let user = await User.findOne({email})
+        const user = await User.findOne({ email });
 
-        if (!user){
-            return res.status(400).json({message: 'No user with that email', flash: "No user with that email", redirectUrl: '/Register'})
-
+        if (!user) {
+            return res.status(400).json({ message: 'No user with that email', flash: "No user with that email", redirectUrl: '/register' });
         }
 
-        let isPasswordMatch = await bcrypt.compare(password, user.password)
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-        if(!isPasswordMatch){
-
-            return res.status(400).json({message: 'Incorrect Password', flash: 'Incorrect Password'})
+        if (!isPasswordMatch) {
+            return res.status(400).json({ message: 'Incorrect Password', flash: 'Incorrect Password' });
         }
 
-        //manage session, if login is successfull
-
-        req.session.user ={
+        // Store userId in session
+        req.session.user = {
+            userId: user._id,
             email: user.email
-        }
+        };
+        console.log("Session created:", req.session.user);
 
-        if(user.email === adminMail){
-            return res.status(200).json({message:'Login successfully',  redirectUrl: '/admin' })
+        if (user.email === adminMail) {
+            return res.status(200).redirect('/admin')
+        } else {
+            return res.status(200).redirect('/products/mensproducts');
         }
-        else {
-            return res.status(200).redirect('/');
-          }
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({ error: error.message });
     }
-} )
+});
 
 
 
@@ -110,4 +104,47 @@ router.post('/Logout', (req, res) => {
       res.status(200).json({ message: 'Logged out successfully', redirectUrl: '/home' });
     });
   });
+
+// Reset password routes
+router.get('/reseting_password/:token', async (req, res) => {
+    const { token } = req.params;
+    console.log ('received token')
+    try {
+        const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
+        if (!user) {
+            req.flash('error', 'Invalid or expired token');
+            return res.redirect('/forget_password');
+        }
+        res.render('reset-password.ejs', { token });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.post('/reset-password/:token', async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    try {
+        const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
+        if (!user) {
+            req.flash('error', 'Invalid or expired token');
+            return res.redirect('/forget_password');
+        }
+
+        if (!regExPassword.test(password)) {
+            req.flash('error', 'Password must meet complexity requirements');
+            return res.redirect(`/auth/reset-password/${token}`);
+        }
+
+        user.password = await bcrypt.hash(password, 12);
+        user.resetToken = undefined;
+        user.resetTokenExpiry = undefined;
+        await user.save();
+
+        req.flash('success', 'Password reset successful');
+        res.redirect('/login');
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 module.exports = router

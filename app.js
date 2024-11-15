@@ -9,11 +9,24 @@ const ejs = require('ejs')
 
 const path = require('path');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
 
 
 const app = express();
 const session = require('express-session');
 const flash = require('express-flash');
+
+app.use(
+  session({
+      secret: process.env.SESSION_SECRET_KEY,
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({ mongoUrl: process.env.dbURL }),
+      cookie: { secure: false } // Set 'true' if using HTTPS
+  })
+);
+
+const isAuthenticated = require('./middleware/authMiddleware.js');
 
 
 
@@ -39,6 +52,11 @@ app.use(bodyParser.json());
 //seting ejs view engine
 app.set('view engine','ejs')
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+
+
+
 // Use routes
 app.use('/', routesRouter);
 app.use('/admin', adminRouter);

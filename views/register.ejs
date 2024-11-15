@@ -47,13 +47,13 @@
 
     <script>
         // Listen for form submission
-        document.getElementById('registerForm').addEventListener('submit', function (e) {
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
             e.preventDefault();  // Prevent the default form submission
-
+    
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
-
+    
             // Check if fields are empty
             if (email === "" || password === "" || confirmPassword === "") {
                 Swal.fire({
@@ -71,17 +71,47 @@
                     confirmButtonText: 'Try Again'
                 });
             } else {
-                // Simulate successful registration (replace with actual registration logic)
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Your account has been created successfully.',
-                    icon: 'success',
-                    confirmButtonText: 'Proceed to Login'
-                }).then(() => {
-                    window.location.href = "/login"; // Redirect to login page after successful registration
-                });
+                // Client-side validation passed; submit the form manually
+                try {
+                    const response = await fetch('/auth/register', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+    
+                    const result = await response.json();
+    
+                    if (response.status === 200) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Your account has been created successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'Proceed to Login'
+                        }).then(() => {
+                            window.location.href = "/login"; // Redirect to login page after successful registration
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: result.message || 'An error occurred during registration.',
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Something went wrong. Please try again later.',
+                        icon: 'error',
+                        confirmButtonText: 'Try Again'
+                    });
+                    console.error(error);
+                }
             }
         });
     </script>
+    
 </body>
 </html>
