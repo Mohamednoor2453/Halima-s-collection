@@ -108,6 +108,44 @@ router.get('/view_cart', isAuthenticated, async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
+
+  //removing specific product from cart
+
+  router.delete('/removefrom_cart', async (req, res) => {
+    const { userId, productId } = req.body; // Extracting userId and productId from the request body
+
+    try {
+        //  Finding the cart linked to the user
+        let cart = await Cart.findOne({ userId });
+        if (!cart) {
+            return res.status(400).json({ message: "Cart does not exist" });
+        }
+
+        //  Finding the index of the item to be removed
+        let itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+
+        //  Checking if the item exists in the cart
+        if (itemIndex === -1) {
+            return res.status(400).json({ message: "Item not found in the cart" });
+        }
+
+        //  Removing the item if it exists
+        cart.items.splice(itemIndex, 1);
+
+        // Recalculating total items and total price in the cart
+        cart.totalItem = cart.items.reduce((total, item) => total + item.quantity, 0);
+        cart.cartTotalPrice = cart.items.reduce((total, item) => total + item.totalPrice, 0);
+
+        // Saving the updated cart
+        await cart.save();
+
+        res.status(200).json({ message: "Item removed from cart successfully", cart });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
   
 
 

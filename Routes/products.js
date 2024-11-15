@@ -39,7 +39,7 @@ router.get('/womensproducts', async (req, res) => {
 // Route for sneakers
 router.get('/sneakers', async (req, res) => {
     try {
-        const sneakers = await getProductsByCategory('sneakers');
+        const sneakers = await getProductsByCategory('sneakers', 15);
 
         res.status(200).render('sneakers', { title: 'Sneakers', sneakers });
     } catch (error) {

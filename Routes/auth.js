@@ -86,7 +86,7 @@ router.post('/login', async (req, res) => {
         if (user.email === adminMail) {
             return res.status(200).redirect('/admin')
         } else {
-            return res.status(200).redirect('/products/mensproducts');
+            return res.status(200).redirect('/');
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
