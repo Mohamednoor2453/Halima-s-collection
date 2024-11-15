@@ -94,16 +94,20 @@ router.post('/login', async (req, res) => {
 });
 
 
+//logout route
 
-// Logout route
-router.post('/Logout', (req, res) => {
-    req.session.destroy(err => {
+router.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({message: 'Error in logging out' });
+        console.error('Error destroying session:', err);
+        return res.status(500).json({ message: 'Error in logging out' });
       }
+  
+      res.clearCookie('connect.sid'); // Clear the session cookie
       res.status(200).json({ message: 'Logged out successfully', redirectUrl: '/home' });
     });
   });
+  
 
 // Reset password routes
 router.get('/reseting_password/:token', async (req, res) => {

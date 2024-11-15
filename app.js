@@ -18,13 +18,18 @@ const flash = require('express-flash');
 
 app.use(
   session({
-      secret: process.env.SESSION_SECRET_KEY,
-      resave: false,
-      saveUninitialized: false,
-      store: MongoStore.create({ mongoUrl: process.env.dbURL }),
-      cookie: { secure: false } // Set 'true' if using HTTPS
+    secret: process.env.SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.dbURL }),
+    cookie: {
+      secure: false, // Set 'true' if using HTTPS
+      httpOnly: true,
+      maxAge: null // Session cookie will expire when the browser is closed
+    }
   })
 );
+
 
 const isAuthenticated = require('./middleware/authMiddleware.js');
 

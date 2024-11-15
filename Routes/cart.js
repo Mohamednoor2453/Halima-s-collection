@@ -88,28 +88,27 @@ router.get('/addcart/:productId', isAuthenticated, async (req, res) => {
     }
 });
 
-//view cart
-router.get('/view_cart', isAuthenticated, async(req, res)=>{
-    const userId = req.session.user.userId;
-
+// View cart route
+router.get('/view_cart', isAuthenticated, async (req, res) => {
+    const userId = req.session?.user?.userId;
+  
     if (!userId) {
-        return res.status(400).json({ message: 'User not authenticated' });
+      return res.status(401).json({ message: 'User not authenticated' });
     }
-
+  
     try {
-        let cart = await Cart.findOne({ userId }).populate('items.productId');
-
-        if(!cart){
-            return res.status(400).json({message: 'cart has not been created'})
-        }
-
-        res.status(200).render('viewcart', {cart})
-
+      const cart = await Cart.findOne({ userId }).populate('items.productId');
+  
+      if (!cart) {
+        return res.status(404).json({ message: 'Cart not found for this user' });
+      }
+  
+      res.status(200).render('viewcart', { cart });
     } catch (error) {
-        res.status(500).json({error: error.message})
-        
+      res.status(500).json({ error: error.message });
     }
-})
+  });
+  
 
 
 //clearing cart
