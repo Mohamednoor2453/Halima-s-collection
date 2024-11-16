@@ -6,6 +6,7 @@ const router = express.Router();
 // Import authentication middleware
 const isAuthenticated = require('../middleware/authMiddleware.js');
 router.use(express.static('public'));
+const isAdmin = require('../middleware/adminMiddleware.js');
 
 // Sending home page to user
 router.get('/', (req, res) => {
@@ -13,17 +14,17 @@ router.get('/', (req, res) => {
 });
 
 // Sending admin page to usergi
-router.get('/admin', isAuthenticated, (req, res) => {
+router.get('/admin', isAdmin, (req, res) => {
     res.render('admin', { title: 'Home' });
 });
 
 // Sending add products page to user
-router.get('/addingProducts', isAuthenticated,(req, res) => {
+router.get('/addingProducts', isAdmin,(req, res) => {
     res.render('addproducts.ejs');
 });
 
 // Sending all products page to user
-router.get('/admin/addedProducts',  isAuthenticated, async (req, res) => {
+router.get('/admin/addedProducts',  isAdmin, async (req, res) => {
     try {
         const products = await Product.find().sort({ _id: -1 }).limit(6);
         res.render('allproducts', { products: products, title: 'Products' });
@@ -44,7 +45,7 @@ router.get('/login', (req, res) => {
 
 //rendering oderForm page
 
-router.get('/oderForm', isAuthenticated, (req, res) => {
+router.get('/oderForm', isAdmin, (req, res) => {
     const userId = req.query.userId;
     res.render('oderForm.ejs', { userId });
 });

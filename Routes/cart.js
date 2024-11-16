@@ -6,8 +6,8 @@ const Cart = require('../model/cart.js')
 const Product = require('../model/product.js')
 const isAuthenticated = require('../middleware/authMiddleware.js');
 const auth = require('./auth.js')
+const User = require('../model/user.js');
 
-const User = require('../model/user.js')//user model 
 
 
 //Add to cart functionality

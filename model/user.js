@@ -19,8 +19,13 @@ const userSchema = new Schema({
     resetTokenExpiry: {
         type: Date,
         default: null
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 });
 
 const User = mongoose.model('User', userSchema);
-module.exports = { User };
+module.exports = User;

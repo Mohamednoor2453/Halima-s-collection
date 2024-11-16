@@ -3,7 +3,9 @@ const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const Product = require('../model/product.js');
-const isAuthenticated = require('../middleware/authMiddleware.js');
+const isAdmin = require('../middleware/adminMiddleware.js');
+const User = require('../model/user.js');
+
 
 const router = express.Router();
 
@@ -29,7 +31,7 @@ const uploadMiddleware = (req, res, next) => {
 };
 
 //adding new product
-router.post('/addingProducts', isAuthenticated, uploadMiddleware, async (req, res) => {
+router.post('/addingProducts',  uploadMiddleware, isAdmin, async (req, res) => {
     try {
         const { name, description, price, stock, categories } = req.body;
 
@@ -81,7 +83,7 @@ router.post('/addingProducts', isAuthenticated, uploadMiddleware, async (req, re
 
 // GET all added products
 // GET route to fetch and display all products
-router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
+router.get('/admin/addedProducts', isAdmin, async (req, res) => {
     try {
         const products = await Product.find().sort({ _id: -1 }).limit(4); // Fetch all products from the database
         res.render('allproducts', { title: 'All Products', products });
@@ -92,7 +94,7 @@ router.get('/admin/addedProducts', isAuthenticated, async (req, res) => {
 });
 
  // Add this route in admin.js
-router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
+router.get('/addedProducts/:id', isAdmin, async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
@@ -110,7 +112,7 @@ router.get('/addedProducts/:id', isAuthenticated, async (req, res) => {
 
 
 // DELETE a product by ID
-router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) => {
+router.delete('/admin/deletingProducts/:id', isAdmin, async (req, res) => {
     const productId = req.params.id;
 
     try {
@@ -139,7 +141,7 @@ router.delete('/admin/deletingProducts/:id', isAuthenticated, async (req, res) =
 
 
 // Route to get product details for updating
-router.get('/updateProduct/:id', isAuthenticated, async (req, res) => {
+router.get('/updateProduct/:id', isAdmin, async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findById(productId);
@@ -156,7 +158,7 @@ router.get('/updateProduct/:id', isAuthenticated, async (req, res) => {
 });
 
 // PUT (Update) a product by ID
-router.put('/admin/updateProduct/:id', isAuthenticated, uploadMiddleware, async (req, res) => {
+router.put('/admin/updateProduct/:id', isAdmin, uploadMiddleware, async (req, res) => {
     const productId = req.params.id;
     const { name, description, price, stock, categories } = req.body;
 
