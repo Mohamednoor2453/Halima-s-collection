@@ -79,6 +79,55 @@ router.post('/register', async (req, res) => {
     }
 });
 
+//login route
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const userEmail = email.trim().toLowerCase();
+        const user = await User.findOne({ email: userEmail });
+
+        if (!user) {
+            return res.status(400).json({ message: 'No user with that email', flash: "No user with that email", redirectUrl: '/register' });
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordMatch) {
+            return res.status(400).json({ message: 'Incorrect Password', flash: 'Incorrect Password' });
+        }
+
+        req.session.user = {
+            userId: user._id,
+            email: user.email,
+            role: user.role
+        };
+        console.log("Session created:", req.session.user);
+
+        // Log the user role to confirm it's set correctly
+        if (req.session.user.role === 'admin') {
+            console.log('Admin logged in:', req.session.user.email);
+            return res.status(200).redirect('/admin');  // Ensure admin page redirection
+        } else {
+            console.log('User logged in:', req.session.user.email);
+            return res.status(200).redirect('/');  // Default user redirection
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Logout Route
+router.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.status(500).json({ message: 'Error in logging out' });
+        }
+
+        res.clearCookie('connect.sid');
+        res.status(200).json({ message: 'Logged out successfully', redirectUrl: '/home' });
+    });
+});
 
 // Forgot Password Route
 router.post('/forget_password', async (req, res) => {
@@ -120,6 +169,8 @@ router.post('/forget_password', async (req, res) => {
         res.status(500).send('An error occurred');
     }
 });
+
+
 
 // Reset Password Route
 router.get('/reseting_password/:token', async (req, res) => {
