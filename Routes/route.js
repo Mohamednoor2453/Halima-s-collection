@@ -50,12 +50,12 @@ router.get('/oderForm', isAdmin, (req, res) => {
     res.render('oderForm.ejs', { userId });
 });
 
-router.get('/contact', (req, res) => {
+
+
+
+router.get('/forget_password', (req, res) => {
     const userId = req.query.userId;
-    res.render('contact', { userId });
+    res.render('forget-password.ejs')
 });
-
-
-
 
 module.exports = router;

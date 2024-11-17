@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const bodyParser = require('body-parser');
 const ejs = require('ejs')
 
+
 const path = require('path');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
@@ -30,7 +31,15 @@ app.use(
   })
 );
 
+// Set up flash middleware
+app.use(flash());
 
+// Middleware to pass flash messages to all views
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 const isAuthenticated = require('./middleware/authMiddleware.js');
 
 
