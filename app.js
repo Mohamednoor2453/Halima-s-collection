@@ -25,7 +25,7 @@ app.use(
     cookie: {
       secure: false, // Set 'true' if using HTTPS
       httpOnly: true,
-      maxAge: null // Session cookie will expire when the browser is closed
+      maxAge: 30 * 60 * 1000 //session cookies expires after 30minutes
     }
   })
 );
