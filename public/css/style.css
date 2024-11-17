@@ -6,7 +6,7 @@ body {
     font-family: Arial, sans-serif;
     /* background: linear-gradient(to right, #fbc2eb, #a6c1ee);  */
     padding-top: 80px;
-    background-color: #f8f5f6e7;
+    background-color: #fff;
 }
 
 .sidebar {
@@ -361,6 +361,7 @@ nav {
     padding: 10px 0;
     z-index: 1000; /* Keeps it above other content */
     border-bottom: 1px solid #ddd;
+    background-color: white;
 }
 
   nav ul{
@@ -395,7 +396,7 @@ nav {
     border: 0.5px solid #ddd; /* Border around each item */
     padding: 10px;
     text-align: center;
-    background-color: #f7f4f6;
+    background-color:#f7f4f6;
 }
 
 .product-page img {
@@ -471,7 +472,7 @@ nav {
 
 /* Individual sneaker item styling */
 .sneaker-item {
-    background-color: #f8f5f6e7;
+    background-color: #fff;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -504,7 +505,7 @@ nav {
 
 /* Women’s Section Styling */
 .women-category-section {
-    background-color: #f8f5f6e7; /* Light pink background */
+    background-color: #fff; /* Light pink background */
     padding: 20px;
     text-align:left;
 }
@@ -622,7 +623,7 @@ nav {
 }
 
 .accessory-category-section {
-    background-color: #f8f5f6e7; /* Light pink background */
+    background-color: #fff; /* Light pink background */
     padding: 20px;
     text-align:left;
 }
@@ -641,6 +642,7 @@ nav {
     max-width: 1200px;
     margin: 0 auto;
 }
+
 
 
 .accessory-product-item {
@@ -942,41 +944,7 @@ nav {
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-    .login-container {
-        padding: 2.5rem;
-    }
 
-    .login-container h2 {
-        font-size: 1.75rem;
-    }
-
-    .login-btn {
-        padding: 1rem;
-        font-size: 1.1rem;
-    }
-    .register-container {
-        padding: 2.5rem;
-    }
-    .register-container h2 {
-        font-size: 1.75rem;
-
-    }
-    .register-btn {
-        padding: 1rem;
-        font-size: 1.1rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .login-container h2 {
-        font-size: 2rem;
-    }
-
-    .form-group input {
-        font-size: 1.1rem;
-    }
-}
 .order-form-container {
     display: flex;
     justify-content: center;
@@ -1236,3 +1204,373 @@ nav {
     color: #bdc3c7;
     border-top: 1px solid #34495e;
 }
+
+
+/* Show nav-links when the .show class is toggled */
+.nav-links.show {
+    display: flex;
+}
+
+/* Display the hamburger icon on mobile */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    margin-top: 26px;
+}
+
+/* Contact Form Styling */
+.contact-container {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.contact-container p {
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form label {
+    margin: 10px 0 5px;
+    font-size: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* General responsive adjustments */
+@media (max-width: 1024px) {
+    /* Navbar: Stack elements on smaller screens */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav .register {
+        margin-top: 10px;
+    }
+
+    .site-title h1 {
+        font-size: 24px;
+    }
+    
+    .site-title p {
+        font-size: 14px;
+    }
+   nav {
+    align-items: center;
+   }
+}
+
+/* Adjust layout for tablets and medium screens */
+@media (max-width: 768px) {
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 10px 0;
+    }
+    
+    /* Center text on smaller screens */
+    .hamburger-menu {
+        display: block;
+        
+    }
+    .men-product-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    /* Adjusting men-product-item padding */
+    .men-product-item {
+        padding: 10px;
+        width: 100%;
+    }
+    
+    .men-section-title {
+        font-size: 1.5rem;
+    }
+    
+    .men-product-name, .men-product-price {
+        font-size: 0.9rem;
+    }
+
+    .women-section-title {
+        font-size: 1.5rem; /* Slightly smaller font for section title */
+        text-align: center; /* Center-align title for smaller screens */
+    }
+
+    .women-product-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Smaller min-width for items */
+        gap: 15px; /* Reduce gap size */
+        padding: 0 10px; /* Add padding around grid */
+    }
+
+    .women-product-item {
+        width: auto; /* Allow item width to be flexible */
+        padding: 10px; /* Less padding for mobile */
+        margin: 0 auto; /* Center-align items if possible */
+    }
+
+    .women-product-image {
+        width: 80%; /* Slightly smaller image size */
+        margin: 0 auto 10px; /* Center-align image with margin at the bottom */
+    }
+
+    .women-product-name {
+        font-size: 1rem; /* Adjust product name font */
+    }
+
+    .women-product-price {
+        font-size: 0.9rem; /* Adjust product price font */
+    }
+    .search-bar {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-top: 10px;
+        padding: 5px 10px;
+    }
+
+    /* Align the search bar to the bottom-right */
+    nav {
+        position: relative;
+    }
+
+    .search-bar {
+        position: absolute;
+        right: 10px;
+        bottom: -20px; /* Adjust position as needed */
+    }
+}
+
+/* Further adjustments for mobile devices */
+@media (max-width: 480px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 10px 0;
+    }
+    
+    /* Center text on smaller screens */
+    .hamburger-menu {
+        display: block;
+        
+    }
+
+    .nav-links {
+        display: none; /* Initially hidden */
+    }
+    .site-title {
+        text-align: center;
+        padding: 10px 0; /* Adds some vertical padding */
+    }
+
+    .site-title h1 {
+        font-size: 20px; /* Smaller font size */
+        margin: 0; /* Remove extra margin for compact layout */
+    }
+
+    .site-title p {
+        font-size: 12px; /* Smaller subtitle text */
+        margin: 0; /* Remove extra margin */
+    }
+
+    /* Stack .register items vertically and center-align */
+    .register {
+        display: flex;
+        flex-direction: column; /* Vertical layout */
+        align-items: center;
+        margin-top: 10px; /* Adds some spacing from the navbar */
+    }
+
+    .register a {
+        margin: 5px 0; /* Vertical space between links */
+        font-size: 0.9rem; /* Slightly smaller font size */
+        text-align: center;
+    }
+    .men-product-container  {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    
+
+    /* Font sizes and padding for mobile */
+    .men-section-title  {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .men-product-item {
+        padding: 8px;
+    }
+
+    .men-product-image {
+        margin-bottom: 5px;
+    }
+
+    .men-product-name, .men-product-price {
+        font-size: 0.8rem;
+    }
+    .product-page, .popular-section {
+        grid-template-columns: 1fr;
+    }
+    .view-cart {
+        padding: 15px;
+        margin-top: 50px;
+    }
+
+    .view-cart h1 {
+        font-size: 22px; /* Smaller title size */
+    }
+
+    .view-cart li {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .view-cart li img {
+        width: 80px; /* Further reduce image size */
+        height: 80px;
+    }
+
+    .view-cart li h3 {
+        font-size: 14px; /* Adjust product name font size */
+    }
+
+    .view-cart li p {
+        font-size: 12px; /* Adjust product details font size */
+    }
+
+    .view-cart .total {
+        font-size: 16px;
+    }
+
+    .remove-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .view-cart .item-details {
+        display: inline-block;
+    }
+    .sneaker-container {
+        grid-template-columns: 1fr;
+    }
+    .women-section-title {
+        font-size: 1.3rem;
+       /* Further adjust title size */
+    }
+
+    .women-product-container {
+        grid-template-columns: 1fr; /* One column layout */
+        gap: 10px;
+    }
+
+    .women-product-item {
+        padding: 8px; /* Reduce padding */
+    }
+
+    .women-product-image {
+        width: 100%; /* Full-width images on extra-small screens */
+    }
+
+    .women-product-name {
+        font-size: 0.9rem;
+    }
+
+    .women-product-price {
+        font-size: 0.85rem;
+    }
+    .search-bar {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-top: 10px;
+        padding: 5px 10px;
+    }
+
+    /* Align the search bar to the bottom-right */
+    nav {
+        position: relative;
+    }
+
+    .search-bar {
+        position: absolute;
+        right: 10px;
+        bottom: -20px; /* Adjust position as needed */
+    }
+    .search-bar form {
+        max-width: 100%;
+    }
+
+    .contact-container {
+        padding: 15px;
+    }
+
+    .contact-container h2 {
+        font-size: 22px;
+    }
+
+    .contact-container p {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .contact-form {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .contact-form button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+

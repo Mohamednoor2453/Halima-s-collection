@@ -17,7 +17,7 @@ router.get('/mensproducts', async (req, res) => {
         const shoes = await getProductsByCategory('men-shoes');
         const suits = await getProductsByCategory('suits');
 
-        res.status(200).render('mensproducts', { title: 'Mens Products', tshirts, trousers, shoes, suits });
+        res.status(200).render('mensproducts', { title: 'Men Products', tshirts, trousers, shoes, suits });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -30,7 +30,7 @@ router.get('/womensproducts', async (req, res) => {
         const trousers = await getProductsByCategory('women-trousers');
         const clothing = await getProductsByCategory('women-clothing')
 
-        res.status(200).render('womensproducts', { title: "Women's Products", shoes, trousers, clothing });
+        res.status(200).render('womensproducts', { title: "Women Products", shoes, trousers, clothing });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
