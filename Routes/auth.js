@@ -28,41 +28,45 @@ router.use(
 
   const adminMail = process.env.ADMIN_EMAIL
 
-router.post('/register', async(req, res)=>{
-    
-    const {email, password} = req.body
+  router.post('/register', async (req, res) => {
+    const { email, password } = req.body;
+    console.log("Form data received:", req.body); // Debugging line
+
     try {
-
+        // Validate email
         if (!regExEmail.test(email)) {
-            return res.status(400).json({ message: 'Invalid email format', flash: 'Invalid email format' });
-          }
-
-          if(!regExPassword.test(password)){
-            return res.status(400).json({message: "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.", flash: 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.'})
-          }
-        let user = await User.findOne({email})
-
-        //cchecking if user is already registered
-        if(user){
-            return res.status(400).json({message: 'User with that email already exist'})
+            console.log('Email validation failed');
+            return res.status(400).json({ message: 'Invalid email format' });
         }
 
-        let hashedPassword = await bcrypt.hash(password, 12)//hashing and salting the password before saving it to db
+        // Validate password
+        if (!regExPassword.test(password)) {
+            console.log('Password validation failed');
+            return res.status(400).json({ message: 'Weak password' });
+        }
 
-        //creating a new user  
-        const newUser = new User({
-            email: email,
-            password: hashedPassword
-          })
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            console.log('User already exists');
+            return res.status(400).json({ message: 'User with that email already exists' });
+        }
 
-          await newUser.save()//saving user to db
-          res.status(200).redirect('/login')
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 12);
 
+        // Save user to database
+        const newUser = new User({ email, password: hashedPassword });
+        await newUser.save();
+        console.log('User registered successfully');
+
+        res.status(200).redirect('/login');
     } catch (error) {
-        res.status(500).json({error:  error.message})
+        console.error('Unexpected error:', error.message);
+        res.status(500).json({ error: error.message });
     }
+});
 
-})
 
 router.post('/login', async(req, res, done)=>{
     const {email, password} = req.body

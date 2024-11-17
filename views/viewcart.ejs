@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Cart</title>
+    <title> Halima Collection | View Cart</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
 </head>
 <body>
 
     <div>
         <nav>
             <div class="site-title">
-                <a href="/"><h1>Halima Collection</h1></a>
-                <p class="font-semibold">Your One Stop Shop</p>
+                <a href="/"><img src="/loggo.png" alt="" width="160"></a>
             </div>
-            <ul>
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i> <!-- Font Awesome hamburger icon -->
+            </div>
+            <ul class="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/products/womensproducts">Women</a></li>
                 <li><a href="/products/mensproducts">Men</a></li>
                 <li><a href="/products/sneakers">Sneakers</a></li>
                 <li><a href="/products/accessories">Accessories</a></li>
+                <li><a href="/products/search">Search></a></li>
+
             </ul>
         </nav>
             </div>
@@ -67,19 +75,19 @@
                 <p>Your go-to source for fashion and style. Discover our curated collection.</p>
             </div>
             <div class="footer-section links">
-                <h3>Quick Links</h3>
+                <h3>Quick Links</h3>    
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/mensproducts">Men</a></li>
-                    <li><a href="/womensproducts">Women</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/products/mensproducts">Men</a></li>
+                    <li><a href="/products/womensproducts">Women</a></li>
+                    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=halima14collection@gmail.com&su=Inquiry about Halima's Collection&body=Hello, I would like to know more about your collection." target="_blank">
+                        Email Us via Gmail
+                    </a>
                 </ul>
             </div>
             <div class="footer-section social">
-                <h3>Follow Us</h3>
-                
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+                <h3>Follow Us</h3> 
+                <a href="https://www.instagram.com/halima_14collection/profilecard/?igsh=MWJoZjQ2bGhsNmp1dw=="><i class="fab fa-instagram"></i></a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -89,6 +97,9 @@
  
 
     <script>
+         document.querySelector('.hamburger-menu').addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.toggle('show');
+    }); 
         async function removeFromCart(userId, productId) {
     try {
         const response = await fetch('/cart/removefrom_cart', {
