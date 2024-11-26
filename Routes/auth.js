@@ -148,7 +148,7 @@ router.post('/forget_password', async (req, res) => {
         user.resetTokenExpiry = Date.now() + 3600000; // Token valid for 1 hour
         await user.save();
 
-        const resetLink = `http://localhost:8000/auth/reseting_password/${token}`;
+        const resetLink = `https://halima14collections-967b2b1b05ba.herokuapp.com/auth/reseting_password/${token}`;
         const subject = 'Password Reset Request';
         const message = `You requested a password reset. Click the link to reset your password: ${resetLink}\nIf you did not request this, please ignore this email.`;
 

@@ -24,7 +24,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.dbURL }),
     cookie: {
-      secure: false, // Set 'true' if using HTTPS
+      secure: true, 
       httpOnly: true,
       maxAge: 30 * 60 * 1000 //session cookies expires after 30minutes
     }
