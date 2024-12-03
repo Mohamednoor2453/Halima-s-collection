@@ -130,16 +130,13 @@ router.post('/logout', (req, res) => {
 });
 
 // Forgot Password Route
+// Forgot Password Route
 router.post('/forget_password', async (req, res) => {
     const { email } = req.body;
     try {
         const user = await User.findOne({ email: email.trim().toLowerCase() });
         if (!user) {
             req.flash('error', 'No user with that email');
-            // Check if the request is an API call (e.g., from Postman)
-            if (req.headers.accept === 'application/json') {
-                return res.status(404).json({ message: 'No user with that email' });
-            }
             return res.redirect('/forget_password');
         }
 
@@ -148,24 +145,16 @@ router.post('/forget_password', async (req, res) => {
         user.resetTokenExpiry = Date.now() + 3600000; // Token valid for 1 hour
         await user.save();
 
-        const resetLink = `https://halima14collections-967b2b1b05ba.herokuapp.com/auth/reseting_password/${token}`;
+        const resetLink = `${process.env.BASE_URL || 'http://localhost:8000'}/auth/reseting_password/${token}`;
         const subject = 'Password Reset Request';
         const message = `You requested a password reset. Click the link to reset your password: ${resetLink}\nIf you did not request this, please ignore this email.`;
 
         await sendEmail(user.email, subject, message);
 
         req.flash('info', 'Password reset link sent to your email');
-        // Return a JSON response for API requests
-        if (req.headers.accept === 'application/json') {
-            return res.status(200).json({ message: 'Password reset link sent to your email' });
-        }
-        res.status(201).json({message: "reset password link sent to your email"})
+        res.redirect('/login');
     } catch (error) {
         console.error(error);
-        // Return a JSON response for API requests
-        if (req.headers.accept === 'application/json') {
-            return res.status(500).json({ error: error.message });
-        }
         res.status(500).send('An error occurred');
     }
 });

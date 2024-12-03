@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const Cart = require('../model/cart.js');
 const Product = require('../model/product.js');
 const Oder = require('../model/oder.js');
+const isAuthenticated = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ async function sendMail(userEmail, orderDetails, destination, phone) {
 }
 
 // Checkout route
-router.post('/checkout', async (req, res) => {
+router.post('/checkout', isAuthenticated, async (req, res) => {
     console.log('Checkout route hit');
     const { userId, email, destination, phone } = req.body;
 
